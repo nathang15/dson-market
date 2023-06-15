@@ -15,7 +15,7 @@ function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [message, setMessage] = useState('');
-  const logo = "D:/React/dson-market/resources/images/1280px-Dickinson_Red_Devils_D_logo.svg.png";
+  const logo = "/1280px-Dickinson_Red_Devils_D_logo.svg.png";
 
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({
