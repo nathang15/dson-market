@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from "next/head";
 import Image from "next/legacy/image";
-import logo from "D:/React/dson-market/resources/images/1280px-Dickinson_Red_Devils_D_logo.svg.png";
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 function LoginPage() {
@@ -16,6 +15,7 @@ function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [message, setMessage] = useState('');
+  const logo = "D:/React/dson-market/resources/images/1280px-Dickinson_Red_Devils_D_logo.svg.png";
 
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({
