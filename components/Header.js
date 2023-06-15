@@ -1,6 +1,5 @@
 import Image from "next/legacy/image";
 import HeaderIcon from "./HeaderIcon";
-import logo from "D:/React/dson-market/resources/images/1280px-Dickinson_Red_Devils_D_logo.svg.png";
 import {
   SearchIcon,
   DotsVerticalIcon,
@@ -15,6 +14,7 @@ import PreLoader from './PreLoader';
 import { useRouter } from 'next/router';
 
 function Header() {
+  const logo = "D:/React/dson-market/resources/images/1280px-Dickinson_Red_Devils_D_logo.svg.png";
 
   const supabase = useSupabaseClient();
   const session = useSession();
