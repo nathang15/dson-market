@@ -31,6 +31,7 @@ function ProfilePage() {
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(true); 
+    const [reviewsCount, setReviewsCount] = useState(0);
 
     useEffect(() => {
         if (!userId) {
@@ -63,6 +64,23 @@ function ProfilePage() {
             setEditMode(false);
         });
     }
+
+    useEffect(() => {
+        if (userId) {
+          // Fetch the reviews associated with the userId
+          supabase.from('reviews')
+            .select()
+            .eq('receiver', userId)
+            .then(result => {
+              if (result.error) {
+                throw result.error;
+              }
+              if (result.data) {
+                setReviewsCount(result.data.length);
+              }
+            });
+        }
+      }, [userId]);
 
     const isMyUser = userId === session?.user?.id;
   return (
@@ -110,9 +128,11 @@ function ProfilePage() {
                                             Cancel
                                         </button>
                                     )}  
-                                </div>
-                    
+                                </div>          
                             </div>
+                        </div>
+                        <div className='flex lg:mx-52 md:mx-52 mx-36 lg:text-xl md:text-xl text-md font-semibold'>
+                            {reviewsCount} {reviewsCount < 2 ? 'Feedback' : 'Feedbacks'}
                         </div>
                         <ProfileTabs active={tab} userId={profile?.id} />                  
                     </div>
