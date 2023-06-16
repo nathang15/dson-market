@@ -13,6 +13,10 @@ function ProfileContent({activeTab,userId}) {
     const [profile, setProfile] = useState(null);
     const session = useSession();
     const supabase = useSupabaseClient();
+    const [reviewText, setReviewText] = useState('');
+    const [reviews, setReviews] = useState([]);
+    const [showCancel, setShowCancel] = useState(false);
+
     useEffect(() => {
       loadPosts();
       if(!session?.user?.id) {
@@ -20,6 +24,9 @@ function ProfileContent({activeTab,userId}) {
       }
         if (activeTab === 'posts') {
           loadPosts();
+        }
+        else if(activeTab === 'reviews') {
+          loadReviews();
         }
       }, [userId]);
     
@@ -88,6 +95,117 @@ function ProfileContent({activeTab,userId}) {
               setEditMode(false);
           });
       }
+
+      async function writeReview() {
+        try {
+          if (!reviewText.trim()) {
+            // Handle case where review text is empty
+            return;
+          }
+      
+          const authorId = session.user.id;
+          const receiverId = userId;
+      
+          // Insert the review into the 'reviews' table
+          const { error } = await supabase.from('reviews').insert([
+            { content: reviewText, author: authorId, receiver: receiverId },
+          ]);
+      
+          if (error) {
+            throw error;
+          }
+      
+          // Clear the review text input after successful submission
+          setReviewText('');
+          loadReviews();
+          resetTextareaHeight();
+        } catch (error) {
+          console.error(error);
+          // Handle error accordingly
+        }
+      }
+
+      async function loadReviews() {
+        try {
+          const { data: reviews, error } = await supabase
+            .from('reviews')
+            .select('id, content, author, created_at')
+            .eq('receiver', userId);
+    
+          if (error) {
+            throw error;
+          }
+    
+          // Fetch author information for each review
+          const reviewAuthors = await Promise.all(
+            reviews.map(async (review) => {
+              const { data: author, error: authorError } = await supabase
+                .from('profiles')
+                .select('id, name, avatar')
+                .eq('id', review.author)
+                .single();
+    
+              if (authorError) {
+                throw authorError;
+              }
+    
+              return {
+                ...review,
+                author: {
+                  id: author.id,
+                  name: author.name,
+                  avatar: author.avatar,
+                },
+              };
+            })
+          );
+    
+          setReviews(reviewAuthors);
+        } catch (error) {
+          console.error(error);
+          // Handle error accordingly
+        }
+      }
+      
+      const handleInputChange = (e) => {
+        setReviewText(e.target.value);
+        setShowCancel(!!e.target.value.trim());
+      };
+    
+      const handleCancel = () => {
+        setReviewText("");
+        setShowCancel(false);
+        resetTextareaHeight(); // Reset the textarea's height
+      };
+      
+      const resetTextareaHeight = () => {
+        const textarea = document.querySelector(".review-textarea");
+        textarea.style.height = "auto";
+      };
+      
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          const textarea = e.target;
+          const { selectionStart, selectionEnd, value } = textarea;
+          const newValue =
+            value.substring(0, selectionStart) +
+            "\n" +
+            value.substring(selectionEnd, value.length);
+          setReviewText(newValue);
+          // Set the cursor position after the inserted line break
+          setTimeout(() => {
+            textarea.selectionStart = selectionStart + 1;
+            textarea.selectionEnd = selectionStart + 1;
+          });
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          handleCancel();
+        }
+      };
+      
+          
       
       const isMyUser = userId === session?.user?.id;
       const defaultAboutText = "No information available.";
@@ -176,16 +294,52 @@ function ProfileContent({activeTab,userId}) {
           </div>
         )}
         {activeTab === 'reviews' && (
-            <div>
-                <Card>
-                    <h2 className='text-3xl mb-2'>Rating</h2>
-                    <div className=''>
-                        <ReviewsInfo/>
-                        <ReviewsInfo/>
-                    </div>  
-                </Card>
-            </div>
-        )}
+          <div>
+          {/* Write Review section */}
+          <Card>
+            <h2 className="text-3xl mb-2">Write a Review</h2>
+            <textarea
+              className="text-lg border py-2 px-3 rounded-md shadow-gray-400 shadow-md w-full review-textarea"
+              style={{ resize: "none", overflow: "hidden" }}
+              placeholder="Write your review here"
+              value={reviewText}
+              onChange={handleInputChange}
+              onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = e.target.scrollHeight + "px";
+              }}
+              onKeyDown={handleKeyDown} // Add keydown event handler
+            />
+
+            <button
+              onClick={writeReview}
+              className="inline-flex mt-2 gap-1 bg-red-500 text-white rounded-md shadow-md py-1 px-2"
+            >
+              Submit Review
+            </button>
+            {showCancel && (
+              <button
+                onClick={handleCancel}
+                className="inline-flex mt-2 gap-1 bg-gray-400 text-white rounded-md shadow-md py-1 px-2 mx-1"
+              >
+                Cancel
+              </button>
+            )}
+          </Card>
+          <Card>
+            <h2 className="text-3xl mb-2">Reviews</h2>
+            {reviews.length > 0 ? (
+              <pre className='whitespace-pre-wrap font-sans'>
+                <ReviewsInfo className="shadow-md" reviews={reviews} />
+              </pre>
+            ) : (
+              <p className="text-lg">No reviews available.</p>
+            )}
+          </Card>
+        </div>
+
+      )}
+
         </UserContextProvider>
     </div>
   )
