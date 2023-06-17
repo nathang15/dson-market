@@ -11,7 +11,11 @@ module.exports = {
       colors: {
         socialBg:'#F5F7FB',
         socialBlue: '#218DFA',
-      }
+        customGray: '#a2a2a2',
+      },
+      borderWidth: {
+        '3': '3px',
+      },
     },
   },
   variants: {

@@ -5,7 +5,7 @@
 @import "tailwindcss/utilities";
 
 body{
-    background-color: #F5F7FB;
+    background-color: #F2F2F2;
 }
 
 @layer components {

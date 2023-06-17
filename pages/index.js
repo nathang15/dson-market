@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <div className="h-screen bg-gray-100 overflow-hidden">
       <Head>
-        <title>Dson Market V2</title>
+        <title>Dson Market</title>
       </Head>
 
       <Header />
