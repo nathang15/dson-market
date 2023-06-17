@@ -94,37 +94,37 @@ function ProfilePage() {
                             <Avatar url={profile.avatar} editable={isMyUser} size={'lg'} onChange={() => window.location.reload()}/>
                         )}
                     </div>
-                    <div className='p-2 pt-0 md:pt-4'>
+                    <div className='p-2 pt-0 md:pt-4 dark:text-lightBG'>
                         <div className='ml-36 md:ml-52 flex justify-between'> 
                             <div>
                                     {editMode && (
                                         <div>
-                                            <input type = "text" className='border py-2 px-3 rounded-md shadow-gray-400 shadow-sm' placeholder={'Your Name'} onChange={ev => setName(ev.target.value)} value={name}/>
+                                            <input type = "text" className='border-2 py-2 px-3 rounded-md dark:bg-customBlack2 dark:border-customBlack dark:placeholder-lightBG' placeholder={'Your Name'} onChange={ev => setName(ev.target.value)} value={name}/>
                                         </div>
                                     )}
                                     {!editMode && (
                                         <h1 className="text-3xl font-bold flex">
                                         {!editMode && loading
                                             ?  <div className='grow'><PreLoader/></div> // Show loading text while fetching profile
-                                            : profile?.name || `ser ${profile?.id}`}
+                                            : profile?.name || `User ${profile?.id}`}
                                         </h1>
                                     )}
                             </div>
                             <div className='grow'>
                                 <div className='text-right'>
                                     {isMyUser && !editMode && (
-                                        <button onClick={() => {setEditMode(true); setName(profile?.name)}} className='inline-flex mx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2 '>
+                                        <button onClick={() => {setEditMode(true); setName(profile?.name)}} className='inline-flex mx-1 gap-1 rounded-md dark:bg-customBlack2 bg-lightBG hover:scale-110 py-1 px-2 '>
                                             <PencilAltIcon className='h-6 w-6'/>
                                             Change Name
                                         </button>
                                     )}
                                     {isMyUser && editMode && (
-                                        <button onClick={saveProfile} className='inline-flex nx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2 '>
+                                        <button onClick={saveProfile} className='inline-flex nx-1 gap-1 dark:bg-customBlack2 bg-lightBG hover:scale-110 rounded-md py-1 px-2 '>
                                             Save Name
                                         </button>
                                     )}       
                                     {isMyUser && editMode && (
-                                        <button onClick={() => setEditMode(false)} className='inline-flex mx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2 '>
+                                        <button onClick={() => setEditMode(false)} className='inline-flex mx-1 gap-1 rounded-md dark:bg-customBlack2 bg-lightBG hover:scale-110 py-1 px-2 '>
                                             Cancel
                                         </button>
                                     )}  

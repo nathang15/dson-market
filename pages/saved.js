@@ -29,7 +29,7 @@ function SavedPostsPage() {
   return (
    <Layout>
     <UserContextProvider>
-        <h1 className='flex justify-center text-6xl mb-6 text-gray-600 -my-3'>Saved Listings</h1>
+        <h1 className='flex justify-center text-6xl mb-6 text-gray-600 -my-3 dark:text-lightBG'>Saved Listings</h1>
           {posts.length > 0 && posts.map(post => (
             <div key={post.id}>
               <PostCard {...post} />

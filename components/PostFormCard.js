@@ -145,7 +145,7 @@ function PostFormCard({onPost}) {
   return (
     <Card>
         <div className='flex gap-2 max-w-2xl'>
-          <div>
+          <div className='flex items-center'>
             <Link href={'/profile/' + profile.id}>  
               <span className='cursor-pointer'>
                 <Avatar url={profile.avatar} />
@@ -169,7 +169,7 @@ function PostFormCard({onPost}) {
                   }, 0);
                 }
               }}
-              className="mt-2 grow p-3"
+              className="mt-2 grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white"
               placeholder={`What do you want to sell, ${profile.name}?`}
             />
             
@@ -216,8 +216,8 @@ function PostFormCard({onPost}) {
             {profile.name && (
               <label className='flex gap-1 mt-2 hover:scale-110 cursor-pointer'>
                 <input type="file" className='hidden' multiple onChange={addPhotos}/>
-                <CameraIcon className='h-7 text-red-500'/>
-                <span className='hidden md:block mt-1 font-semibold text-gray-500'>Photos</span>
+                <CameraIcon className='h-7 text-red-500 dark:text-gray-300'/>
+                <span className='hidden md:block mt-1 font-semibold text-gray-400 dark:text-gray-300'>Photos</span>
               </label>
             )}
           </div>
@@ -225,9 +225,9 @@ function PostFormCard({onPost}) {
             {profile.name && (
               <>
                 {content && (
-                  <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 mr-2'>Cancel</button>
+                  <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 mr-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
                 )}
-                <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2'>Post</button>               
+                <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Post</button>               
               </>
             )}
             {errorMessage && (

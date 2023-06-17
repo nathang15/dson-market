@@ -48,7 +48,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen bg-gray-100 overflow-hidden">
+    <div className="h-screen bg-lightBG dark:bg-darkBG overflow-hidden">
       <Head>
         <title>Dson Market</title>
       </Head>
@@ -56,7 +56,9 @@ export default function Home() {
       <Header />
       
       <main className="flex">
+        <div className="bg-white border-2 border-lightBorder dark:bg-customBlack dark:border-customBlack2 -mt-1">
         <Sidebar />
+        </div>
         <Feed/>
       </main>
       

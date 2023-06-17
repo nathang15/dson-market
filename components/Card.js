@@ -1,9 +1,9 @@
 import React from 'react';
 
 function Card({ children, noPadding }) {
-  let classes = 'bg-white shadow-md shadow-gray-300 rounded-md p-4 mb-5'
+  let classes = 'bg-white dark:bg-customBlack dark:border-customBlack2 border-2 border-lightBorder rounded-md p-4 mb-5'
   if(noPadding){
-    classes = 'bg-white shadow-md shadow-gray-300 rounded-xl mb-5'
+    classes = 'bg-white dark:bg-customBlack dark:border-customBlack2 border-2 border-lightBorder rounded-xl mb-5'
   }
   return (
     <div

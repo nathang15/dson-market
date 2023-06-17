@@ -41,7 +41,7 @@ function Avatar({ size, url, editable, onChange }) {
           <img src={url} alt="" className="w-full h-full object-cover" />
         </div>
       ) : (
-        <div className={`${borderRadius} bg-gray-200 flex items-center justify-center text-gray-400 text-md font-bold p-2 ${editable && 'mt-16'}`}>
+        <div className={`${borderRadius} bg-gray-200 flex items-center justify-center text-gray-400 text-md font-bold p-2 ${editable && 'mt-16'}`} >
           No Avatar
         </div>
       )}
@@ -53,8 +53,8 @@ function Avatar({ size, url, editable, onChange }) {
       )}
 
       {editable && (
-        <label className='absolute bottom-0 right-0 shadow-md shadow-gray-500 p-2 bg-white rounded-full cursor-pointer'>
-          <CameraIcon className='h-7 w-7' />
+        <label className='absolute bottom-0 right-0 hover:scale-110 border-2 border-lightBorder dark:border-customBlack p-2 bg-white rounded-full cursor-pointer dark:bg-customBlack2'>
+          <CameraIcon className='h-7 w-7 dark:text-lightBG' />
           <input type="file" className='hidden' onChange={handleAvatarChange} />
         </label>
       )}
