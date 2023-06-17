@@ -162,7 +162,7 @@ function LoginPage() {
                           </span>
                         ) : (
                           <span className=''>
-                            Don't have an account yet?{' '}
+                            Don&apos;t have an account yet?{' '}
                             <span className="hover:underline hover:cursor-pointer font-semibold text-gray-900">
                               Register now!
                             </span>
@@ -198,7 +198,7 @@ function LoginPage() {
                           </span>
                         ) : (
                           <span className='flex justify-center gap-1'>
-                            Don't have an account?
+                            Don&apos;t have an account?{' '}
                             <span className="hover:underline hover:cursor-pointer font-semibold">
                               Register now
                             </span>
