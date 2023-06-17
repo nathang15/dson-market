@@ -431,7 +431,11 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
       <div className='mt-4 flex gap-8'>
         <button className='flex gap-1 items-center' onClick={toggleLike}>
           {/* Like button */}
-          <ThumbUpIcon className={"h-6 w-6 text-gray-800 dark:text-lightBorder" + (isLikedByMe ? 'fill-red-400 dark:text-lightBG' : '')} />
+          <ThumbUpIcon
+            className={`h-6 w-6 text-gray-800 dark:text-lightBorder ${
+              isLikedByMe ? 'fill-red-500 dark:text-lightBG' : ''
+            }`}
+          />
           <span className='dark:text-lightBG'>
             {likes?.length}
           </span>         
