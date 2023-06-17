@@ -288,7 +288,7 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
     <Card>
       {/* Post header */}
       <div className="flex gap-3">
-        <div>
+        <div> 
           <Link href={'/profile/' + authorProfile.id}>
             <span className='cursor-pointer'>
               <Avatar url={authorProfile.avatar} />
@@ -296,10 +296,10 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
           </Link>
         </div>
         <div className="grow">
-          <p>
+          <p className='dark:text-lightBG'>
             <Link href={'/profile/' + authorProfile.id}>
-            <span className="mr-1 font-semibold cursor-pointer hover:underline">
-              {authorProfile.name || `User ${authorProfile?.id}`}
+            <span className="font-semibold cursor-pointer hover:underline">
+              {authorProfile.name || `User ${authorProfile?.id}`}{' '}
             </span>
             </Link> posted a <a className="text-red-500 font-semibold">listing</a>
           </p>
@@ -311,28 +311,28 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
           {/* Dropdown menu */}
           {!dropdownOpen && (
             <button className='text-gray-300' onClick={openDropDown}>
-              <DotsHorizontalIcon className="h-7 text-gray-500" />
+              <DotsHorizontalIcon className="h-7 text-gray-500 dark:text-lightBG" />
             </button>
           )}
           {dropdownOpen && (
             <button className='text-gray-300'>
-              <DotsHorizontalIcon className="h-7 text-gray-500" />
+              <DotsHorizontalIcon className="h-7 text-gray-500 dark:text-lightBG" />
             </button>
           )}
           <ClickOutHandler onClickOut={handleClickOutSideDropdown}>
             <div className='relative'>
               {dropdownOpen && (
-                <div className='absolute -right-6 bg-white shadow-md shadow-gray-300 p-3 rounded-sm border border-gray-100 w-52 z-10'>
+                <div className='absolute -right-6 bg-white p-3 rounded-sm border-2 dark:bg-customBlack dark:border-customBlack2 border-lightBorder w-52 z-10'>
                   {/* Save button */}
                   <button onClick={toggleSave} className='w-full -my-2'>
-                    <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300'>
+                    <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 dark:text-lightBG'>
                       {isSaved && (
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5" />
                         </svg>
                       )}
                       {!isSaved && (
-                        <BookmarkIcon className="h-6 text-gray-800 group-hover:text-white" />
+                        <BookmarkIcon className="h-6 text-gray-800 group-hover:text-white dark:text-lightBG" />
                       )}
                       {isSaved ? 'Remove from saved' : 'Save Listing'}
                     </span>
@@ -349,8 +349,8 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
                   {/* Delete button */} 
                   {myProfile?.id && myProfile.id === authorProfile.id && (
                     <button onClick={deletePost} className='w-full -my-2'>
-                      <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300'>
-                        <TrashIcon className="h-6 text-gray-800 group-hover:text-white" />Delete Post
+                      <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 dark:text-lightBG hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300'>
+                        <TrashIcon className="h-6 text-gray-800 dark:text-lightBG group-hover:text-white" />Delete Post
                       </span>
                     </button>
                   )}
@@ -359,8 +359,8 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
                     className="w-full -my-2"
                     onClick={handleReportSubmit}
                   >
-                    <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300'>
-                      <ExclamationIcon className="h-6 text-gray-800 group-hover:text-white" />
+                    <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 dark:text-lightBG'>
+                      <ExclamationIcon className="h-6 text-gray-800 group-hover:text-white dark:text-lightBG" />
                       Report
                     </span>
                   </button>
@@ -383,7 +383,7 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
   
       {/* Post content */}
       <div>
-        <pre className='whitespace-pre-wrap font-sans my-3'>{content}</pre>
+        <pre className='whitespace-pre-wrap font-sans my-3 dark:text-lightBG'>{content}</pre>
         {/* Post photos */}
         {photos?.length > 0 && (
           <div>
@@ -431,13 +431,17 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
       <div className='mt-4 flex gap-8'>
         <button className='flex gap-1 items-center' onClick={toggleLike}>
           {/* Like button */}
-          <ThumbUpIcon className={"h-6 w-6 text-gray-800 " + (isLikedByMe ? 'fill-red-400' : '')} />
-          {likes?.length}
+          <ThumbUpIcon className={"h-6 w-6 text-gray-800 dark:text-lightBorder" + (isLikedByMe ? 'fill-red-400 dark:text-lightBG' : '')} />
+          <span className='dark:text-lightBG'>
+            {likes?.length}
+          </span>         
         </button>
         {/* Comment button */}
         <button className='flex gap-1 items-center'>
-          <ChatAlt2Icon className="h-6 w-6 text-gray-800" />
+          <ChatAlt2Icon className="h-6 w-6 text-gray-800 dark:text-lightBG" />
+          <span className='dark:text-lightBG  '>
           {comments.length}
+          </span>
         </button>
       </div>
       <div className='flex mt-4 gap-3'>
@@ -449,12 +453,12 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
           </Link>
         </div>
         {/* Comment input */}
-        <div className='border grow rounded-full h-12 shadow-md relative'>
+        <div className='grow rounded-full h-12 dark:border-2 border-lightBorder dark:border-customBlack2 relative'>
           <form onSubmit={postComment}>
             <input
               value={commentText}
               onChange={ev => setCommentText(ev.target.value)}
-              className='block w-full p-3 px-4 overflow-hidden h-12 rounded-full' placeholder='Leave a comment' />
+              className='dark:text-white bg-lightBG block w-full p-3 px-4 overflow-hidden h-12 rounded-full dark:bg-customBlack2 dark:placeholder-lightBorder' placeholder='Leave a comment' />
           </form>
         </div>
       </div>
@@ -467,10 +471,10 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
                 <Avatar url={comment.profiles.avatar} />
               </span>
             </Link>
-            <div className="bg-gray-200 py-2 px-4 rounded-3xl">
+            <div className="bg-lightBG py-2 px-4 rounded-3xl dark:bg-customBlack2">
               <div>
                 <Link href={'/profile/' + comment.profiles.id}>
-                  <span className="hover:underline font-semibold mr-1">
+                  <span className="hover:underline font-semibold mr-1 dark:text-lightBG">
                     {comment.profiles.name}
                   </span>
                 </Link>
@@ -478,7 +482,7 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
                   <ReactTimeAgo timeStyle={'twitter'} date={(new Date(comment.created_at)).getTime()} />
                 </span>
               </div>
-              <p className="text-sm">{comment.content}</p>
+              <p className="text-sm dark:text-lightBG">{comment.content}</p>
             </div>
           </div>
         ))}

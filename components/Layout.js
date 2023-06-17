@@ -5,16 +5,18 @@ import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 function Layout({children}) {
   return (
-    <div className="h-screen bg-gray-100 overflow-hidden">
+    <div className="h-screen bg-lightBG dark:bg-darkBG overflow-hidden">
       <Head>
-        <title>Dson Market V2</title>
+        <title>DSON MARKET</title>
       </Head>
 
       <Header />
       
       <main className="flex">
-        <Sidebar />
-        <div className="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto scrollbar-hide">
+        <div className="bg-white border-2 border-lightBorder dark:bg-customBlack dark:border-customBlack2 -mt-1">
+          <Sidebar />
+        </div>
+        <div className="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto scrollbar-hide dark:bg-darkBG">
             {children}
         </div>
       </main>

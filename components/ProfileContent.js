@@ -8,6 +8,7 @@ import {UserContextProvider} from "../contexts/UserContext";
 import {
   PencilAltIcon,
 } from "@heroicons/react/outline";
+
 function ProfileContent({activeTab,userId}) {
     const [posts,setPosts] = useState([]);
     const [profile, setProfile] = useState(null);
@@ -229,7 +230,7 @@ function ProfileContent({activeTab,userId}) {
           <div>
             <Card>
               <div className='flex justify-between items-center'>
-                <h2 className='text-3xl mb-2'>About me</h2>
+                <h2 className='text-3xl mb-2 dark:text-lightBG'>About me</h2>
                 <div>
                   {isMyUser && !editMode && (
                     <button
@@ -237,25 +238,31 @@ function ProfileContent({activeTab,userId}) {
                         setEditMode(true);
                         setAbout(profile?.about);
                       }}
-                      className='inline-flex mx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2'
+                      className='inline-flex mx-1 gap-1 bg-white rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack hover:scale-110 py-1 px-2'
                     >
-                      <PencilAltIcon className='h-6 w-6' />
+                      <PencilAltIcon className='h-6 w-6 dark:text-lightBG' />
+                      <span className='dark:text-lightBG'>
                       Edit About
+                      </span>        
                     </button>
                   )}
                   {isMyUser && editMode && (
                     <>
                       <button
                         onClick={saveProfile}
-                        className='inline-flex mx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2'
+                        className='inline-flex mx-1 gap-1 bg-white rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack hover:scale-110 py-1 px-2'
                       >
-                        Save About
+                      <span className='dark:text-lightBG'>
+                      Save About
+                      </span>
                       </button>
                       <button
                         onClick={() => setEditMode(false)}
-                        className='inline-flex mx-1 gap-1 bg-white rounded-md shadow-md shadow-gray-500 py-1 px-2'
+                        className='inline-flex mx-1 gap-1 bg-white rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack hover:scale-110 py-1 px-2'
                       >
-                        Cancel
+                      <span className='dark:text-lightBG'>
+                      Cancel
+                      </span>
                       </button>
                     </>
                   )}
@@ -265,7 +272,7 @@ function ProfileContent({activeTab,userId}) {
                 {editMode ? (
                   <div className='flex-grow mt-2'>
                     <textarea
-                    className='text-lg border py-2 px-3 rounded-md shadow-gray-400 shadow-sm w-full'
+                    className='text-lg dark:placeholder-lightBG py-2 px-3 rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack w-full'
                     style={{ resize: 'none', overflow: 'hidden' }}
                     placeholder='Tell us about yourself'
                     onChange={(ev) => setAbout(ev.target.value)}
@@ -280,12 +287,12 @@ function ProfileContent({activeTab,userId}) {
                     rows={calculateRowCount(about)}
                   />
 
-                    <p className='text-sm text-right text-gray-400 mt-1'>
+                    <p className='text-sm text-right text-gray-400 mt-1 dark:text-lightBG'>
                       {about?.length}/200 words
                     </p>
                   </div>
                 ) : (
-                  <pre className='text-lg whitespace-pre-wrap font-sans'>
+                  <pre className='text-lg whitespace-pre-wrap font-sans dark:text-lightBG'>
                     {profile?.about ? profile.about : defaultAboutText}
                   </pre>
                 )}
@@ -297,9 +304,9 @@ function ProfileContent({activeTab,userId}) {
           <div>
           {/* Write Review section */}
           <Card>
-            <h2 className="text-3xl mb-2">Write a Review</h2>
+            <h2 className="text-3xl mb-2 dark:text-lightBG">Write a Review</h2>
             <textarea
-              className="text-lg border py-2 px-3 rounded-md shadow-gray-400 shadow-md w-full review-textarea"
+              className="text-lg py-2 px-3 rounded-md dark:bg-customBlack2 border-2 dark:text-lightBG dark:border-customBlack dark:placeholder-lightBG w-full review-textarea"
               style={{ resize: "none", overflow: "hidden" }}
               placeholder="Write your review here"
               value={reviewText}
@@ -313,27 +320,27 @@ function ProfileContent({activeTab,userId}) {
 
             <button
               onClick={writeReview}
-              className="inline-flex mt-2 gap-1 bg-red-500 text-white rounded-md shadow-md py-1 px-2"
+              className="inline-flex mt-2 gap-1 bg-red-500 text-white rounded-md dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 py-1 px-2"
             >
               Submit Review
             </button>
             {showCancel && (
               <button
                 onClick={handleCancel}
-                className="inline-flex mt-2 gap-1 bg-gray-400 text-white rounded-md shadow-md py-1 px-2 mx-1"
+                className="inline-flex mt-2 gap-1 bg-gray-400 text-white rounded-md dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 py-1 px-2 mx-1"
               >
                 Cancel
               </button>
             )}
           </Card>
           <Card>
-            <h2 className="text-3xl mb-2">Reviews</h2>
+            <h2 className="text-3xl mb-2 dark:text-lightBG">Reviews</h2>
             {reviews.length > 0 ? (
-              <pre className='whitespace-pre-wrap font-sans'>
+              <pre className='whitespace-pre-wrap font-sans dark:text-lightBG'>
                 <ReviewsInfo className="shadow-md" reviews={reviews} />
               </pre>
             ) : (
-              <p className="text-lg">No reviews available.</p>
+              <p className="text-lg dark:text-lightBG">No reviews available.</p>
             )}
           </Card>
         </div>

@@ -4,6 +4,8 @@ import {
   SearchIcon,
   DotsVerticalIcon,
   CogIcon,
+  SunIcon,
+  MoonIcon,
 } from "@heroicons/react/outline";
 import Avatar from "./Avatar";
 import Link from 'next/link';
@@ -12,6 +14,7 @@ import { UserContext } from '@/contexts/UserContext';
 import React, { useContext, useEffect, useState } from 'react';
 import PreLoader from './PreLoader';
 import { useRouter } from 'next/router';
+import useColorMode from "@/hooks/useColorMode";
 
 function Header() {
   const logo = "/1280px-Dickinson_Red_Devils_D_logo.svg.png";
@@ -23,6 +26,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
+  const [colorMode, setColorMode] = useColorMode();
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim() !== '') {
@@ -51,7 +55,7 @@ function Header() {
   }, [session, supabase]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 px-4 shadow-md">
+    <header className="sticky top-0 z-50 bg-white border-2 border-lightBorder dark:border-customBlack2 dark:bg-customBlack flex items-center p-2 lg:px-5 px-4">
       {/* Left */}
       <div className="px-4 flex items-center">
       <Link href="/">
@@ -62,11 +66,11 @@ function Header() {
           layout="fixed"
         />
         </Link>
-        <div className="hidden md:inline-flex ml-2 items-center rounded-full bg-gray-100 p-2">
-          <SearchIcon className="h-6 text-gray-600" />
+        <div className="hidden md:inline-flex ml-2 items-center rounded-full bg-gray-100 p-2 dark:bg-customBlack2">
+          <SearchIcon className="h-6 text-gray-600 dark:text-gray-200" />
             <form onSubmit={handleSearch}>
               <input
-                className="hidden lg:inline-flex ml-2 bg-transparent outline-none placeholder-gray-500 flex-shrink"
+                className="hidden lg:inline-flex ml-2 bg-transparent outline-none placeholder-gray-600 dark:placeholder-gray-200 flex-shrink"
                 placeholder="Search DsonMarket"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -90,6 +94,16 @@ function Header() {
             </div> // Show a loading state if profile is not yet available
           )}
         </div>
+        <button
+        className="p-2 rounded-full bg-transparent hover:scale-125"
+        onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+      >
+        {colorMode === 'dark' ? (
+          <SunIcon className="h-6 w-6 text-white" />
+        ) : (
+          <MoonIcon className="h-6 w-6" />
+        )}
+      </button>
       </div>
     </header>
   );
@@ -99,31 +113,4 @@ export default Header;
 
 
 
-   {/* <a href="" className="block mb-2 text-gray-800"><ChatIcon className="rounded-full cursor-pointer h-8 w-8" /></a> */}
-        {/* <a href="#" className="block" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-          <BellIcon className="icon" />
-        </a> */}
-        {/* <div className="px-1 text-gray-800 ">
-              {!dropdownOpen && (
-                <button className='' onClick={openDropDown}>
-                <BellIcon className="rounded-full cursor-pointer h-8 w-8" />
-                </button>
-              )}             
-              {dropdownOpen && (
-              <button className=''>
-                <BellIcon className="rounded-full cursor-pointer h-8 w-8" />
-              </button>
-              )}
-              <ClickOutHandler onClickOut={handleClickOutSideDropdown}>
-                <div className='relative'>
-                  {dropdownOpen && (
-                    <div className='absolute mt-2 -right-6 bg-white shadow-md shadow-gray-300 p-3 rounded-sm border border-gray-100 w-80'>
-                      <NotificationInfo/>
-                      <NotificationInfo/>
-                      <NotificationInfo/>
-                    </div>
-                  )}
-                </div>          
-              </ClickOutHandler>
-          </div> */}
-        {/* <a href="" className="block text-gray-800"><CogIcon className="rounded-full cursor-pointer h-8 w-8" /></a> */}
+ 

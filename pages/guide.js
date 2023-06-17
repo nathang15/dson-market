@@ -24,7 +24,7 @@ function PurchasedPosts() {
   return (
    <Layout>
     <UserContextProvider>
-        <h1 className='flex justify-center text-6xl mb-6 text-gray-600 -my-3'>Community Guideline</h1>
+        <h1 className='flex justify-center text-6xl mb-6 text-gray-600 -my-3 dark:text-lightBG'>Community Guideline</h1>
     </UserContextProvider>
    </Layout> 
   )

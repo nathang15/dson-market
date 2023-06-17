@@ -8,7 +8,7 @@
     return (
       <div>
         {reviews.map((review) => (
-          <div className='border-b border-b-gray-200 shadow-md p-4 -mx-4' key={review.id}>
+          <div className='border-2 dark:border-customBlack border-lightBorder dark:bg-customBlack2 bg-lightBG rounded-full p-4' key={review.id}>
             <div className='flex items-center gap-2'>
               <div>
                 <Link href={'/profile/' + review.author.id}>
@@ -22,10 +22,10 @@
                     {review.author.name}
                   </span>
               </Link>
-              <span className='text-gray-500 text-sm'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
+              <span className='text-gray-500 dark:text-lightBG text-sm'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
              
             </div>
-            <div className='flex mx-16 text-lg leading-3'>{review.content}</div>
+            <div className='flex mx-16 text-lg leading-3 dark:text-lightBG'>{review.content}</div>
           </div>
         ))}
       </div>
