@@ -84,7 +84,8 @@ function Header() {
         <div>
           {profile && profile.id ? ( // Check if profile and profile.id exist
             <Link href={`/profile/${profile.id}`}>
-              <span className="cursor-pointer">
+              <span className="cursor-pointer flex items-center">
+                <div className="mr-3 font text-md dark:text-lightBG">{profile.name}</div>
                 <Avatar url={profile.avatar} />
               </span>
             </Link>
