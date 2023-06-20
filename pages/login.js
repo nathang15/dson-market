@@ -108,7 +108,7 @@ function LoginPage() {
                 )}
               </div>
               <div className='mt-5 grow'>
-                <div className='bg-white rounded-xl mb-5' style={{ width: '400px' }}>
+                <div className='bg-white rounded-xl mb-5 w-full sm:w-auto'>
                   {isSignUp ? (
                     <h1 className="p-5 font-bold text-4xl text-center mt-3 -mb-5">
                       Sign Up
@@ -178,7 +178,7 @@ function LoginPage() {
                           Sign In
                         </button>
                       )}
-                      <span className='flex justify-center mt-1'>
+                      <span className='sm:text-sm flex justify-center mt-1'>
                         — Remember to use Dickinson email! —
                       </span>
                       <a

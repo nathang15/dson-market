@@ -21,6 +21,9 @@ module.exports = {
       borderWidth: {
         '3': '3px',
       },
+      screens: {
+        'sm': '320px',
+      },
     },
   },
   variants: {

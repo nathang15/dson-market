@@ -31,6 +31,7 @@
     "react-avatar-edit": "^1.2.0",
     "react-avatar-editor": "^13.0.0",
     "react-clickout-handler": "^1.2.1",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-spinners": "^0.13.8",
     "react-time-ago": "^7.2.1",
