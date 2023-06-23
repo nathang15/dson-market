@@ -298,7 +298,7 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
         <div className="grow">
           <p className='dark:text-lightBG'>
             <Link href={'/profile/' + authorProfile.id}>
-            <span className="font-semibold cursor-pointer hover:underline">
+            <span className="font-semibold hover: animate-underline2 hover:scale-105 transition-all cursor-pointer">
               {authorProfile.name || `User ${authorProfile?.id}`}{' '}
             </span>
             </Link> posted a <a className="text-red-500 font-semibold">listing</a>
