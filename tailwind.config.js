@@ -17,6 +17,7 @@ module.exports = {
         lightBG: "#F9F9F9",
         darkBG: "#17181C",
         lightBorder: "#EFEFEF",
+        taupe: "#CDC4B5",
       },
       borderWidth: {
         '3': '3px',

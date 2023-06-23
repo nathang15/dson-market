@@ -33,6 +33,7 @@
     "react-clickout-handler": "^1.2.1",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
+    "react-image-crop": "^10.1.4",
     "react-spinners": "^0.13.8",
     "react-time-ago": "^7.2.1",
     "tailwind-scrollbar-hide": "^1.1.7",
