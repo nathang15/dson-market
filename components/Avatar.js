@@ -134,7 +134,7 @@ function Avatar({ size, url, editable, onChange }) {
             <CameraIcon className='h-7 w-7 dark:text-lightBG' />
           </button>
           {isModalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-75">
+            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75">
               <div className="modal-content dark:bg-customBlack border-2 dark:border-customBlack2 border-x-customGray p-3 rounded-lg">
                 <ImgEditor supabase={supabase} session={session}/>
                 <button className='mt-2 border-2 dark:border-customBlack2 p-2 rounded-lg dark:bg-customBlack dark:text-lightBG hover:scale-105 font-semibold' onClick={closeModal}>Close</button>
