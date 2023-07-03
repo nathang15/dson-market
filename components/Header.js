@@ -70,10 +70,13 @@ function Header() {
           <SearchIcon className="h-6 text-gray-600 dark:text-gray-200" />
             <form onSubmit={handleSearch}>
               <input
-                className="hidden lg:inline-flex ml-2 bg-transparent outline-none placeholder-gray-600 dark:placeholder-gray-200 flex-shrink"
-                placeholder="Search DsonMarket"
+                className="hidden lg:inline-flex ml-2 bg-transparent outline-none bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white flex-shrink"
+                
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={(e) => e.target.placeholder = ""}
+                onBlur={(e) => e.target.placeholder = "Search DsonMarket"}
+                placeholder = "Search DsonMarket"
               />
             </form>
         </div>
@@ -96,7 +99,7 @@ function Header() {
           )}
         </div>
         <button
-        className="p-2 rounded-full bg-transparent hover:scale-125"
+        className="p-2 rounded-full bg-transparent hover:scale-125 transitiona-all"
         onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
       >
         {colorMode === 'dark' ? (
