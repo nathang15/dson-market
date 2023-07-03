@@ -462,7 +462,10 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
             <input
               value={commentText}
               onChange={ev => setCommentText(ev.target.value)}
-              className='dark:text-white bg-lightBG block w-full p-3 px-4 overflow-hidden h-12 rounded-full dark:bg-customBlack2 dark:placeholder-lightBorder' placeholder='Leave a comment' />
+              className='dark:text-white bg-lightBG block w-full p-3 px-4 overflow-hidden h-12 rounded-full dark:bg-customBlack2 dark:placeholder-lightBorder' onFocus={(e) => e.target.placeholder = ""}
+              onBlur={(e) => e.target.placeholder = 'Leave a comment'} 
+              placeholder='Leave a comment'/>
+              
           </form>
         </div>
       </div>

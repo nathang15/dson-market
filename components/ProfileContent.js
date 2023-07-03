@@ -272,7 +272,7 @@ function ProfileContent({activeTab,userId}) {
                 {editMode ? (
                   <div className='flex-grow mt-2'>
                     <textarea
-                    className='text-lg dark:placeholder-lightBG py-2 px-3 rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack w-full'
+                    className='text-lg dark:placeholder-lightBG py-2 px-3 rounded-md dark:text-white dark:bg-customBlack2 border-2 dark:border-customBlack w-full'
                     style={{ resize: 'none', overflow: 'hidden' }}
                     placeholder='Tell us about yourself'
                     onChange={(ev) => setAbout(ev.target.value)}
