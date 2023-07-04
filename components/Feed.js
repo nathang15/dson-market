@@ -12,6 +12,20 @@ function Feed() {
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
+    const subscription = supabase
+    .channel('posts')
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+      },
+      (payload) => fetchPosts()
+    )
+    .subscribe()
+  }, []);
+
+  useEffect(() => {
     fetchPosts()
   }, []);
   
@@ -29,7 +43,7 @@ function Feed() {
         }
       });
   }, [session?.user?.id]);
-
+  
   function fetchPosts() {
     supabase.from('posts').select('id, content, created_at, photos, profiles(id, avatar, name)').is('parent', null).order('created_at', {ascending: false}).then(result => {
       setPosts(result.data);
