@@ -23,20 +23,21 @@ function PostFormCard({onPost}) {
     const lowerContent = content.toLowerCase();
     const hasWTB = /(^|\s)#wtb(\s|$)/i.test(lowerContent);
     const hasWTS = /(^|\s)#wts(\s|$)/i.test(lowerContent);
-  
-    if (!hasWTB && !hasWTS) {
-      setErrorMessage('Invalid post input. Please include either #wtb or #wts.');
+    const hasWTBlong = /(^|\s)#wanttobuy(\s|$)/i.test(lowerContent); // New regex for #wanttobuy and #wanttosell
+    const hasWTSlong = /(^|\s)#wanttosell(\s|$)/i.test(lowerContent);
+    if (!hasWTB && !hasWTS && !hasWTSlong && !hasWTBlong) {
+      setErrorMessage('Invalid post input. Please include either #wtb, #wts, #wanttobuy, or #wanttosell.');
       return;
     }
-
-    if (hasWTS && uploads.length === 0) {
+  
+    if (hasWTS | hasWTSlong && uploads.length === 0) {
       setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
       return;
     }
-
+  
     const words = content.trim().split(/\s+/);
     const otherWords = words.filter(word => !word.startsWith('#'));
-
+  
     if (otherWords.length === 0) {
       setErrorMessage('Invalid post input. Please include content in your post.');
       return;
@@ -57,6 +58,7 @@ function PostFormCard({onPost}) {
       }
     })
   }
+  
 
   function cancelPost() {
     setContent('');
