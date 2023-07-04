@@ -27,7 +27,7 @@ function PurchasedPosts() {
             </li>
             <br/>
             <li>
-            <p className='font-semibold underline decoration-red-500 decoration-4'>5. Contact Information:</p> In your profile's About section, please include some form of contact information for communication purposes. This will allow interested buyers or sellers to reach out to you. However, avoid sharing sensitive personal information publicly.
+            <p className='font-semibold underline decoration-red-500 decoration-4'>5. Contact Information:</p> In your profile About section, please include some form of contact information for communication purposes. This will allow interested buyers or sellers to reach out to you. However, avoid sharing sensitive personal information publicly.
             </li>
             <br/>
             <li>
