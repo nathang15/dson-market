@@ -87,6 +87,25 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
       .then(result => setLikes(result.data));
   }
 
+  // useEffect(() => {
+  //   const channel = supabase
+  //   .channel('likes')
+  //   .on(
+  //     'postgres_changes',
+  //     {
+  //       event: '*',
+  //       schema: 'public',
+  //       filter: 'post_id=eq.' + id,
+  //     },
+  //     (payload) => fetchLikes()
+  //   )
+  //   .subscribe()
+
+  //   return () => {
+  //     supabase.removeChannel(channel)
+  //   }
+  // }, []);
+
   // Fetches the comments for the post
   function fetchComments() {
     supabase.from('posts')
@@ -95,6 +114,23 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
       .then(result => setComments(result.data));
   }
 
+  // useEffect(() => {
+  //   const channel2 = supabase
+  //   .channel('likes')
+  //   .on(
+  //     'postgres_changes',
+  //     {
+  //       event: '*',
+  //       schema: 'public',
+  //     },
+  //     (payload) => fetchComments()
+  //   )
+  //   .subscribe()
+
+  //   return () => {
+  //     supabase.removeChannel(channel2)
+  //   }
+  // }, []);
   // Checks if the current user has liked the post
   const isLikedByMe = !!likes.find(like => like.user_id === myProfile?.id);
 
@@ -112,10 +148,6 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
         .then(() => {
           fetchLikes();
         })
-        .catch(() => {
-          // If there was an error, revert the state back
-          setLikes(likes);
-        });
     } else {
       supabase
         .from('likes')
@@ -126,10 +158,6 @@ function PostCard({id, content, created_at, photos, profiles:authorProfile}) {
         .then(() => {
           fetchLikes();
         })
-        .catch(() => {
-          // If there was an error, revert the state back
-          setLikes(likes);
-        });
     }
   }
   

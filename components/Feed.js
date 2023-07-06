@@ -17,13 +17,18 @@ function Feed() {
     .on(
       'postgres_changes',
       {
-        event: 'INSERT',
+        event: '*',
         schema: 'public',
       },
       (payload) => fetchPosts()
     )
     .subscribe()
+
+    return () => {
+      supabase.removeChannel(subscription);
+    }
   }, []);
+  
 
   useEffect(() => {
     fetchPosts()
