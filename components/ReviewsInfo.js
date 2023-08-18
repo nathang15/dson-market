@@ -8,8 +8,8 @@
     return (
       <div>
         {reviews.map((review) => (
-          <div className='border-2 dark:border-customBlack border-lightBorder dark:bg-customBlack2 bg-lightBG rounded-full p-4' key={review.id}>
-            <div className='flex items-center gap-2'>
+          <div className='border-2 dark:border-customBlack border-lightBorder dark:bg-customBlack2 bg-lightBG rounded-full px-4 py-4 mb-2' key={review.id}>
+            <div className='flex gap-2'>
               <div>
                 <Link href={'/profile/' + review.author.id}>
                   <span className='cursor-pointer'>
@@ -22,10 +22,10 @@
                     {review.author.name}
                   </span>
               </Link>
-              <span className='text-gray-500 dark:text-lightBG text-sm'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
+              <span className='text-gray-500 dark:text-lightBG text-sm mt-0.5'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
              
             </div>
-            <div className='flex mx-16 text-lg leading-3 dark:text-lightBG'>{review.content}</div>
+            <div className='flex mx-16 text-lg leading-3 -mt-4 dark:text-lightBG'>{review.content}</div>
           </div>
         ))}
       </div>
