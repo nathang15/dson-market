@@ -14,7 +14,7 @@ module.exports = {
         customGray: '#a2a2a2',
         customBlack: "#1E1F23",
         customBlack2: "#27282F",
-        lightBG: "#F9F9F9",
+        lightBG: "#F4F4F4",
         darkBG: "#17181C",
         lightBorder: "#EFEFEF",
         taupe: "#CDC4B5",
