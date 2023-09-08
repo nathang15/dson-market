@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import { UserContextProvider } from '../contexts/UserContext';
 
-function PurchasedPosts() {
+function Guideline() {
   return (
     <Layout>
       <UserContextProvider>
@@ -56,4 +56,4 @@ function PurchasedPosts() {
   );
 }
 
-export default PurchasedPosts;
+export default Guideline;

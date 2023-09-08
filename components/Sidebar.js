@@ -6,6 +6,7 @@ import {
   LogoutIcon,
   BookmarkIcon,
   BookOpenIcon,
+  PencilAltIcon
 } from "@heroicons/react/outline";
 import {
   CalendarIcon,
@@ -59,6 +60,9 @@ function Sidebar() {
       </Link>    
       <Link href="/guide" className="block md:px-3 px-0">
         <SidebarRow active={pathname === "/guide"} Icon={BookOpenIcon} title="Guideline" />
+      </Link>
+      <Link href="/feedback" className="block md:px-3 px-0">
+        <SidebarRow active={pathname === "/feedback"} Icon={PencilAltIcon} title="Project Feedback" />
       </Link>
       <button onClick={logout} className="w-full -my-2 block md:px-3 px-0">
         <span className="">
