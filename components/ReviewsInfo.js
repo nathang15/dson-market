@@ -18,14 +18,14 @@
                 </Link>
               </div>
               <Link href={'/profile/' + review.author.id}>
-                  <span className="hover:underline font-semibold mr-1 text-md">
+                  <span className="hover:underline font-semibold mr-1 md:text-lg text-xs">
                     {review.author.name}
                   </span>
               </Link>
-              <span className='text-gray-500 dark:text-lightBG text-sm mt-0.5'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
+              <span className='text-gray-500 dark:text-lightBG md:text-sm text-xs md:mt-0.5 mt-1'><ReactTimeAgo timeStyle={'twitter'} date={(new Date(review.created_at)).getTime()} /></span>
              
             </div>
-            <div className='flex mx-16 text-lg leading-3 -mt-4 dark:text-lightBG'>{review.content}</div>
+            <div className='flex ml-16 md:text-lg text-sm leading-3 md:-mt-4 -mt-6 dark:text-lightBG'>{review.content}</div>
           </div>
         ))}
       </div>

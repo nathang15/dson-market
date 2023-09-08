@@ -434,7 +434,7 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
           </Link>
         </div>
         <div className="grow">
-          <p className='dark:text-lightBG'>
+          <p className='dark:text-lightBG md:text-md text-sm'>
             <Link href={'/profile/' + authorProfile.id}>
             <span className="font-semibold hover: animate-underline2 hover:scale-105 transition-all cursor-pointer">
               {authorProfile.name || `User ${authorProfile?.id}`}{' '}
@@ -607,12 +607,12 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
               <input
                 value={commentText}
                 onChange={ev => setCommentText(ev.target.value)}
-                className={`dark:text-white bg-lightBG block w-full p-3 px-4 overflow-hidden h-12 rounded-full dark:bg-customBlack2 dark:placeholder-lightBorder${
+                className={`text-sm md:text-md dark:text-white bg-lightBG block w-full p-3 px-4 overflow-hidden h-12 rounded-full dark:bg-customBlack2 dark:placeholder-lightBorder${
                   sold ? 'opacity-50 pointer-events-none' : ''
                 }`}                
                 onFocus={(e) => e.target.placeholder = ""}
                 onBlur={(e) => e.target.placeholder = sold ? 'This exchange is completed' : 'Leave a comment'}
-                placeholder={sold ? 'This exchange is completed!' : 'Leave a comment'}
+                placeholder={sold ? 'Exchange completed!' : 'Leave a comment'}
                 disabled={sold} // Disable input if isSold is true
               />
               <label className='flex gap-1 -mt-14 hover:scale-110 cursor-pointer absolute right-0 top-0'>
@@ -662,11 +662,11 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
             <div className="bg-lightBG py-2 px-4 rounded-3xl dark:bg-customBlack2">
               <div className='flex items-center'>
                 <Link href={'/profile/' + comment.profiles.id}>
-                  <span className="hover:underline font-semibold mr-1 dark:text-lightBG">
+                  <span className="md:text-md text-xs hover:underline font-semibold mr-1 dark:text-lightBG">
                     {comment.profiles.name}
                   </span>
                 </Link>
-                <span className="text-sm text-gray-400">
+                <span className="md:text-sm text-xs text-gray-400">
                   <ReactTimeAgo timeStyle={'twitter'} date={(new Date(comment.created_at)).getTime()} />
                 </span>
                 {session?.user?.id == comment.profiles.id && (
@@ -677,7 +677,7 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
                   }}
                   className="relative group"
                 >
-                  <XIcon className='h-4 text-red-500 dark:text-gray-300 ml-4' />
+                  <XIcon className='h-4 text-red-500 dark:text-gray-300 md:ml-4 ml-2' />
                   <span className="opacity-0 dark:bg-black bg-taupe text-white text-center text-xs rounded-lg py-2 absolute z-10 w-32 left-1/2 transform -translate-x-1/2 top-full mt-2 pointer-events-none transition-opacity duration-300 group-hover:opacity-100">
                     Delete the comment
                   </span>
@@ -686,7 +686,7 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
                 )}
                 
               </div>
-              <p className="text-sm dark:text-lightBG">{comment.content}</p>
+              <p className="md:text-sm text-xs dark:text-lightBG">{comment.content}</p>
               {comment.photos && comment.photos.length > 0 && (
                   <div className='flex gap-2 mt-1'>
                     {comment.photos.slice(0, 3).map((photo, index) => (

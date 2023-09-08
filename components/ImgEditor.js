@@ -66,7 +66,7 @@ class ImgEditor extends Component {
   };
   render(){
   return (
-    <div className="App dark:text-lightBG">
+    <div className="App dark:text-lightBG md:w-full w-72 md:h-full">
        <input type="file" className='text-md' name="profilePicBtn" accept="image/png, image/jpeg" onChange={this.profilePicChange} />
        <ImageCrop   
           imageSrc={this.state.selectedImage}
