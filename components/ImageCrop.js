@@ -7,7 +7,7 @@ const ImageCrop = ({ imageSrc, onCrop, setEditorRef, scaleValue, onScaleChange }
       <div className="editorOverlayInner">
         <div className="editorModalContent clearfix">
           <div className="cropCnt mt-2">
-            <AvatarEditor image={imageSrc} border={10} width={450} height={450} scale={scaleValue} rotate={0} ref={setEditorRef} className="cropCanvas" />
+            <AvatarEditor image={imageSrc} border={10} width={272} height={272} scale={scaleValue} rotate={0} ref={setEditorRef} className="cropCanvas" />
             <input style={{ width: '100%' }} type="range" value={scaleValue} name="points" min="1" max="10" onChange={onScaleChange} />
             <button onClick={onCrop} className="border-2 dark:border-customBlack2 p-2 rounded-lg dark:bg-customBlack dark:text-lightBG hover:scale-105 font-semibold">
               Save

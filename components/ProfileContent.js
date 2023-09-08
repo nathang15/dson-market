@@ -238,10 +238,10 @@ function ProfileContent({activeTab,userId}) {
                         setEditMode(true);
                         setAbout(profile?.about);
                       }}
-                      className='inline-flex mx-1 gap-1 bg-white rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack hover:scale-110 py-1 px-2'
+                      className='inline-flex items-center mx-1 gap-1 bg-white rounded-md dark:bg-customBlack2 border-2 dark:border-customBlack hover:scale-110 py-1 px-2'
                     >
                       <PencilAltIcon className='h-6 w-6 dark:text-lightBG' />
-                      <span className='dark:text-lightBG'>
+                      <span className='dark:text-lightBG md:text-md text-xs'>
                       Edit About
                       </span>        
                     </button>

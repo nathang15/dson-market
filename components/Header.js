@@ -66,11 +66,11 @@ function Header() {
           layout="fixed"
         />
         </Link>
-        <div className="hidden md:inline-flex ml-2 items-center rounded-full bg-gray-100 p-2 dark:bg-customBlack2">
+        <div className="flex md:inline-flex ml-2 items-center rounded-full bg-gray-100 p-2 dark:bg-customBlack2">
           <SearchIcon className="h-6 text-gray-600 dark:text-gray-200" />
             <form onSubmit={handleSearch}>
               <input
-                className="hidden lg:inline-flex ml-2 bg-transparent outline-none bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white flex-shrink"
+                className="lg:inline-flex ml-2 bg-transparent outline-none bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white flex-shrink"
                 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -82,13 +82,13 @@ function Header() {
         </div>
       </div>
 
-      <div className="flex items-center sm:space-x-2 justify-end flex-grow">
+      <div className="flex items-center sm:space-x-2 justify-end flex-grow md:-ml-0 -ml-5">
         {/* user Image here with Name */}
         <div>
           {profile && profile.id ? ( // Check if profile and profile.id exist
             <Link href={`/profile/${profile.id}`}>
-              <span className="cursor-pointer flex items-center">
-                <div className="mr-3 font text-md dark:text-lightBG hover: animate-underline2 hover:scale-105 transition-all cursor-pointer font-semibold">{profile.name}</div>
+              <span className="cursor-pointer md:flex items-center hidden">
+                <div className="md:flex hidden mr-3 font text-md dark:text-lightBG hover: animate-underline2 hover:scale-105 transition-all cursor-pointer font-semibold">{profile.name}</div>
                 <Avatar url={profile.avatar} />
               </span>
             </Link>
@@ -99,7 +99,7 @@ function Header() {
           )}
         </div>
         <button
-        className="p-2 rounded-full bg-transparent hover:scale-125 transitiona-all"
+        className="p-2 rounded-full bg-transparent hover:scale-125 transition-all"
         onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
       >
         {colorMode === 'dark' ? (

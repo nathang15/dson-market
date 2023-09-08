@@ -89,13 +89,13 @@ function ProfilePage() {
             <Card noPadding={true}>
                 <div className='relative overflow-hidden rounded-md'>
                 <Cover url={profile?.cover} editable={isMyUser} onChange={() => window.location.reload()}/>
-                    <div  className='absolute md:top-48 top-36 left-4 z-20'>
+                    <div  className='absolute md:top-48 top-28 md:left-4 -left-2 z-20'>
                         {profile && (
                             <Avatar url={profile.avatar} editable={isMyUser} size={'lg'} onChange={() => window.location.reload()}/>
                         )}
                     </div>
-                    <div className='p-2 pt-0 md:pt-4 dark:text-lightBG'>
-                        <div className='ml-36 md:ml-52 flex justify-between'> 
+                    <div className='md:p-2 p-0 pt-0 md:pt-4 dark:text-lightBG'>
+                        <div className='ml-32 md:ml-52 md:flex justify-between'> 
                             <div>
                                     {editMode && (
                                         <div>
@@ -103,7 +103,7 @@ function ProfilePage() {
                                         </div>
                                     )}
                                     {!editMode && (
-                                        <h1 className="text-3xl font-bold flex">
+                                        <h1 className="md:text-3xl text-lg font-bold flex justify-end mr-2">
                                         {!editMode && loading
                                             ?  <div className='grow'><PreLoader/></div> // Show loading text while fetching profile
                                             : profile?.name || `User ${profile?.id}`}
@@ -113,13 +113,13 @@ function ProfilePage() {
                             <div className='grow'>
                                 <div className='text-right'>
                                     {isMyUser && !editMode && (
-                                        <button onClick={() => {setEditMode(true); setName(profile?.name)}} className='inline-flex mx-1 gap-1 rounded-md dark:bg-customBlack2 bg-lightBG hover:scale-110 py-1 px-2 '>
+                                        <button onClick={() => {setEditMode(true); setName(profile?.name)}} className='inline-flex items-center mx-1 gap-1 rounded-md dark:bg-customBlack2 bg-lightBG hover:scale-110 py-1 px-2 '>
                                             <PencilAltIcon className='h-6 w-6'/>
-                                            Change Name
+                                            <span className='md:text-md text-sm'>Change Name</span>
                                         </button>
                                     )}
                                     {isMyUser && editMode && (
-                                        <button onClick={saveProfile} className='inline-flex nx-1 gap-1 dark:bg-customBlack2 bg-lightBG hover:scale-110 rounded-md py-1 px-2 '>
+                                        <button onClick={saveProfile} className='inline-flex mx-1 gap-1 dark:bg-customBlack2 bg-lightBG hover:scale-110 rounded-md py-1 px-2 '>
                                             Save Name
                                         </button>
                                     )}       
@@ -131,7 +131,7 @@ function ProfilePage() {
                                 </div>          
                             </div>
                         </div>
-                        <div className='flex lg:mx-52 md:mx-52 mx-36 lg:text-xl md:text-xl text-md font-semibold'>
+                        <div className='flex justify-end md:justify-start md:ml-52 ml-0 mr-2 lg:text-xl md:text-xl text-sm font-semibold'>
                             {reviewsCount} {reviewsCount < 2 ? 'Feedback' : 'Feedbacks'}
                         </div>
                         <ProfileTabs active={tab} userId={profile?.id} />                  
