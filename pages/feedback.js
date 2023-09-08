@@ -10,6 +10,15 @@ function Feedback() {
     const [emailValid, setEmailValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const [text, setText] = useState('');
+    const initialHeight = '150px';
+    const handleTextareaInput = (e) => {
+      const textarea = e.target;
+      textarea.style.height = 'auto'; // Reset the height to auto
+      textarea.style.height = `${Math.max(textarea.scrollHeight, parseInt(initialHeight))}px`; // Set the height to the scrollHeight or the initial height, whichever is greater
+      setText(textarea.value); // Update the state with the current text content
+    };
+
     const sendEmail = (e) => {
         e.preventDefault();
         const emailInput = form.current.from_email;
@@ -32,6 +41,7 @@ function Feedback() {
         
             setEmailValid(true); // Reset email validation state
             setErrorMessage(''); // Clear any previous error message
+            setText('');
             console.log(result.text);
           })
           .catch((error) => {
@@ -63,7 +73,7 @@ function Feedback() {
             )}
 
             <label className='md:text-2xl text-lg mb-2 text-darkBG dark:text-lightBG'>Content</label>
-            <textarea placeholder='Your Feedback' className='rounded-md dark:bg-darkBG bg-lightBG mb-4 text-darkBG dark:text-lightBG pl-2' name="message"/>
+            <textarea style={{ height: initialHeight }} value={text} onInput={handleTextareaInput} placeholder='Your Feedback' className='rounded-md dark:bg-darkBG bg-lightBG mb-4 text-darkBG dark:text-lightBG pl-2' name="message"/>
 
             <button className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
             Send
