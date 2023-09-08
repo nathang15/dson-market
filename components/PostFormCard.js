@@ -171,7 +171,7 @@ function PostFormCard({onPost}) {
                   }, 0);
                 }
               }}
-              className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white"
+              className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white md:text-md text-sm"
               placeholder = {`What do you want to sell, ${profile.name}?`}
               onFocus={(e) => e.target.placeholder = ""}
               onBlur={(e) => e.target.placeholder = `What do you want to sell, ${profile.name}?`}

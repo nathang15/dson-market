@@ -6,10 +6,10 @@ function PurchasedPosts() {
   return (
     <Layout>
       <UserContextProvider>
-        <h1 className='flex justify-center text-5xl mb-6 text-darkBG dark:text-lightBG underline decoration-red-500 -my-3 font-bold'>Community Guidelines</h1>
+        <h1 className='flex justify-center md:text-5xl text-2xl mb-6 text-darkBG dark:text-lightBG underline decoration-red-500 -my-3 font-bold'>Community Guidelines</h1>
         
         <div className='flex justify-center'>
-          <ul className='text-lg text-darkBG dark:text-lightBG w-2/3 leading-loose'>
+          <ul className='text-lg text-darkBG dark:text-lightBG md:w-2/3 w-5/6 leading-loose'>
             <li>
               <p className='font-semibold underline decoration-red-500 decoration-4'>1. Respect and Courtesy:</p> Treat all members of the community with respect and courtesy. Be mindful of your language and interactions. Avoid engaging in personal attacks, harassment, or discrimination based on race, gender, religion, nationality, sexual orientation, or any other personal characteristics.
             </li>

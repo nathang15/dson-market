@@ -42,11 +42,11 @@ function Sidebar() {
 
   return (
     <div className="p-2 mt-5 max-w-[600px] xl:min-w-[300px]">
-      <Link href="/" className="block px-3">
+      <Link href="/" className="block md:px-3 px-0">
         <SidebarRow active={pathname === "/"} Icon={HomeIcon} title="Home" />
       </Link>
       {userId && (
-        <Link href={`/profile/${userId}/posts`} className="block px-3">
+        <Link href={`/profile/${userId}/posts`} className="block md:px-3 px-0">
           <SidebarRow
             active={pathname === `/profile/${userId}/posts`}
             Icon={CurrencyDollarIcon}
@@ -54,13 +54,13 @@ function Sidebar() {
           />
         </Link>
       )}
-      <Link href="/saved" className="block px-3">
+      <Link href="/saved" className="block md:px-3 px-0">
         <SidebarRow active={pathname === "/saved"} Icon={BookmarkIcon} title="Saved" />
       </Link>    
-      <Link href="/guide" className="block px-3">
+      <Link href="/guide" className="block md:px-3 px-0">
         <SidebarRow active={pathname === "/guide"} Icon={BookOpenIcon} title="Guideline" />
       </Link>
-      <button onClick={logout} className="w-full -my-2 block px-3">
+      <button onClick={logout} className="w-full -my-2 block md:px-3 px-0">
         <span className="">
           <SidebarRow Icon={LogoutIcon} title="Logout" />
         </span>

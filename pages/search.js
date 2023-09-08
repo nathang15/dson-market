@@ -60,13 +60,13 @@ function SearchPage() {
   return (
     <Layout>
         <UserContext.Provider value={{profile}}>
-          <h1 className="flex justify-center text-5xl font-semibold mb-6 text-gray-600 -my-3">Search Results for &quot;{query}&quot;</h1>
+          <h1 className="flex justify-center md:text-5xl text-xl font-semibold mb-6 text-gray-600 -my-3">Search Results for &quot;{query}&quot;</h1>
                 {loading ? (
                     <div className='flex justify-center mt-5'>
                         <PreLoader />
                     </div>
                     ) : searchResults.length === 0 ? (
-                    <p className='flex justify-center text-2xl mb-6 text-gray-600 -my-3 mt-5'>
+                    <p className='flex justify-center text-2xl mb-6 text-gray-600 -my-3 mt-5 font-bold'>
                         No results found
                     </p>
                     ) : (

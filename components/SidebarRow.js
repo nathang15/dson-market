@@ -19,10 +19,10 @@ function SidebarRow({ src, Icon, title, active }) {
       )}
       {Icon && (
           <Icon
-            className={`h-8 w-8 group-hover:text-red-500 transition-all ${active ? 'text-red-500' : 'text-gray-500 dark:text-lightBG'}`}
+            className={`md:h-8 md:w-8 h-7 w-7 group-hover:text-red-500 transition-all ${active ? 'text-red-500' : 'text-gray-500 dark:text-lightBG'}`}
           />      
       )}
-      <p className="hidden sm:inline-flex font-medium">{title}</p>
+      <p className="md:inline-flex hidden font-medium">{title}</p>
     </div>
   );
 }

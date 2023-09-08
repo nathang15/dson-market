@@ -32,8 +32,8 @@ function Cover({url,editable,onChange}) {
         )}
         {editable && (
             <div className='absolute right-0 bottom-0 m-2'>
-                <label className='hover:scale-110 flex items-center dark:text-lightBG bg-white py-1 px-2 rounded-md dark:bg-customBlack2 gap-1 cursor-pointer'><CameraIcon className='h-7 w-7 dark:text-lightBG'/>
-                <input type="file" onChange={updateCover} className='hidden'/>Change cover image</label>
+                <label className='hover:scale-110 flex items-center dark:text-lightBG bg-white py-1 px-2 rounded-md dark:bg-customBlack2 gap-1 cursor-pointer'><CameraIcon className='md:h-7 md:w-7 h-4 w-4 dark:text-lightBG'/>
+                <input type="file" onChange={updateCover} className='hidden'/><span className='md:text-md text-xs'>Change cover image</span></label>
             </div>
         )}
     </div>
