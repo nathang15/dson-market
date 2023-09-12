@@ -77,8 +77,18 @@ function PostFormCard({onPost}) {
   async function addPhotos(ev) {
     const files = ev.target.files;
     if (files.length > 0) {
+      if (files.length > 8) {
+        // Display an error message when the limit is exceeded
+        alert("You can only upload a maximum of 8 photos at a time.");
+        return;
+      }
       setIsUploading(true);
       for (const file of files) {
+        if (uploads.length >= 8) {
+          // If the limit is reached during the loop, break out of it
+          alert("You can only upload a maximum of 8 photos at a time.");
+          break;
+        }
         const newName = Date.now() + file.name;
         const result = await supabase
           .storage
