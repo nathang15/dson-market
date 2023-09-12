@@ -16,7 +16,7 @@ function Layout({children}) {
         <div className="bg-white border-2 border-lightBorder dark:bg-customBlack dark:border-customBlack2 -mt-1">
           <Sidebar />
         </div>
-        <div className="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto scrollbar-hide dark:bg-darkBG">
+        <div className="flex-grow h-screen pb-24 pt-6 mr-4 xl:mr-40 overflow-y-auto scrollbar-hide dark:bg-darkBG">
             {children}
         </div>
       </main>
