@@ -74,6 +74,11 @@ body{
       transform: scaleX(1);
       transform-origin: left center;
     }
+
+    ::selection {
+      color: #222222;
+      background: #ff6666;
+    }
     
   }
 
