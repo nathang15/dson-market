@@ -666,7 +666,7 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
                     {comment.profiles.name}
                   </span>
                 </Link>
-                <span className="md:text-sm text-xs text-gray-400">
+                <span className="text-xs text-gray-400">
                   <ReactTimeAgo timeStyle={'twitter'} date={(new Date(comment.created_at)).getTime()} />
                 </span>
                 {session?.user?.id == comment.profiles.id && (
@@ -689,13 +689,17 @@ function PostCard({id, content, created_at, photos, sold, profiles:authorProfile
               <p className="md:text-sm text-xs dark:text-lightBG">{comment.content}</p>
               {comment.photos && comment.photos.length > 0 && (
                   <div className='flex gap-2 mt-1'>
-                    {comment.photos.slice(0, 3).map((photo, index) => (
-                      <div key={photo} className='rounded-md overflow-hidden'>
+                    {comment.photos.map((photo, index) => (
+                      <div key={photo} className='rounded-md overflow-hidden cursor-pointer' onClick={() => openPhotoModal(index)}>
                         <img src={photo} className='mx-auto w-full h-full object-cover' alt="" />
                       </div>
                     ))}
+                    {/* {isModalOpen && (
+                      <PhotoModal photo={comment.photos[selectedPhotoIndex]} onClose={closePhotoModal} onNavigateLeft={navigateToPreviousPhoto} onNavigateRight={navigateToNextPhoto} />
+                    )} */}
                   </div>
               )}
+              
             </div>
           </div>
         ))}
