@@ -211,6 +211,9 @@ function ProfileContent({activeTab,userId}) {
       const isMyUser = userId === session?.user?.id;
       const defaultAboutText = "No information available.";
       const calculateRowCount = (text) => {
+        if (text === null || text === undefined) {
+          return 0; // or handle the case appropriately
+        }
         const lineBreaks = (text.match(/\n/g) || []).length;
         return lineBreaks + 1; // Add 1 to account for the initial row
       };

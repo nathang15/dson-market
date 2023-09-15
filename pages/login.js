@@ -64,7 +64,7 @@ function LoginPage() {
       setMessage('');
       return;
     }
-    setMessage('Please check your email for a confirmation link');
+    setMessage('Please check your email for a confirmation link in 60 seconds!');
     setErrorMessage('');
   }
 
