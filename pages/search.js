@@ -48,12 +48,12 @@ function SearchPage() {
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
-        // Filter the posts based on the query containing matching words
+        // Split the query into individual words
+        const queryWords = query.toLowerCase().split(' ');
+  
+        // Filter the posts based on the query containing all matching words
         const filteredPosts = posts.filter((post) =>
-          query
-            .toLowerCase()
-            .split(' ') // Split the query into individual words
-            .some((word) => post.content.toLowerCase().includes(word))
+          queryWords.every((word) => post.content.toLowerCase().includes(word))
         );
   
         setSearchResults(filteredPosts || []);
@@ -63,6 +63,7 @@ function SearchPage() {
     }
     setLoading(false);
   }
+  
   
 
   return (
