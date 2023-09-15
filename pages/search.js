@@ -43,19 +43,27 @@ function SearchPage() {
         .from('posts')
         .select('id, content, created_at, photos, profiles(id, avatar, name)')
         .is('parent', null)
-        .ilike('content', `%${query}%`)
         .order('created_at', { ascending: false });
-
+  
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
-        setSearchResults(posts || []);
+        // Filter the posts based on the query containing matching words
+        const filteredPosts = posts.filter((post) =>
+          query
+            .toLowerCase()
+            .split(' ') // Split the query into individual words
+            .some((word) => post.content.toLowerCase().includes(word))
+        );
+  
+        setSearchResults(filteredPosts || []);
       }
     } catch (error) {
       console.error('Error searching posts:', error);
     }
     setLoading(false);
   }
+  
 
   return (
     <Layout>
