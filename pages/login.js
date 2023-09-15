@@ -19,7 +19,7 @@ function LoginPage() {
   const [message, setMessage] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const logo = "/1280px-Dickinson_Red_Devils_D_logo.svg.png";
+  const logo = "/logo.png";
 
   async function loginWithGoogle() {
     await supabase.auth.signInWithOAuth({
@@ -79,7 +79,7 @@ function LoginPage() {
       </Head>
       <header className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 px-4 shadow-md">
           <div className="px-4 flex items-center">
-            <Image src={logo} height={40} width={48} objectFit="fixed" />
+            <Image src={logo} height={40} width={40} objectFit="fixed" />
             <h1 className="text-xl font-bold ml-2">DSON MARKET</h1>
           </div>
           <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
