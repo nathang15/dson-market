@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import useColorMode from "@/hooks/useColorMode";
 
 function Header() {
-  const logo = "/1280px-Dickinson_Red_Devils_D_logo.svg.png";
+  const logo = "/logo.png";
 
   const supabase = useSupabaseClient();
   const session = useSession();
