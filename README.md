@@ -38,10 +38,10 @@ Update this part
 
 ## Code of Conduct ##
 
-Dson Market is based on the idea of sharing so everyone benefits from our combined efforts. To benefit everyone, we need to maintain a welcoming and appropriate community. 
+Dson Market is based on the idea of sharing so everyone benefits from our combined efforts. To benefit everyone, we need to maintain a welcoming and appropriate community.<br />
 Dson Market has as a [code of conduct](CODE_OF_CONDUCT.md) that follows the [Contributor Covenant](https://www.contributor-covenant.org/) used by many
-open source projects. 
-This document outlines our expectations and provides a clear process for reporting any concerns you may have. If, at any point, you feel uncomfortable with any aspect of the OED project, we encourage you to reach out to the OED leadership team. This communication channel is open for formal complaints, informal concerns, and suggestions on how OED can enhance its community.
+open source projects.<br />
+This document outlines our expectations and provides a clear process for reporting any concerns you may have. If, at any point, you feel uncomfortable with any aspect of the OED project, we encourage you to reach out to the OED leadership team. This communication channel is open for formal complaints, informal concerns, and suggestions on how OED can enhance its community.<br />
 We are committed to promptly addressing any feedback that clearly articulates potential actions and reasons behind them. Regardless of the outcome, you will be informed of our decision. We want to emphasize our dedication to maintaining a welcoming and inclusive community, and we are committed to taking any concerns or improvement ideas seriously, working diligently to address them.
 
 ## Security Concerns ##
