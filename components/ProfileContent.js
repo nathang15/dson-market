@@ -39,7 +39,7 @@ function ProfileContent({activeTab,userId}) {
           setProfile(profile);
         } catch (error) {
           console.error(error);
-          window.location.reload();
+          // window.location.reload();
         }
       }
     
