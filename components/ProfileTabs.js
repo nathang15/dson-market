@@ -23,10 +23,10 @@ function ProfileTabs({userId, active}) {
         <Link
           href={`/profile/${userId}/posts`}
           className={active === 'posts' ? activeTabClasses : tabClasses}
-          onClick={handleSalesLinkClick}
+          // onClick={handleSalesLinkClick}
         >
           <CurrencyDollarIcon className="h-7 w-7 mr-1 bg-transparent text-yellow-500" />
-          <span className="md:block">Sales</span>
+          <span className="md:block">Posts</span>
         </Link>
         <Link href={`/profile/${userId}/about`} className={active === 'about' ? activeTabClasses : tabClasses}>
             <UserCircleIcon className='h-7 w-7 mr-1 bg-transparent text-blue-500'/>
