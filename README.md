@@ -28,7 +28,7 @@ For a list of contributors, [click here](https://github.com/nathang15/dson-marke
 
 ## Licensing ##
 
-This project is licensed under the GNU General Public License version 2.0.
+This project is licensed under the GNU General Public License version 3.0.
 
 See the full licensing agreement [here](LICENSE.txt)
 
