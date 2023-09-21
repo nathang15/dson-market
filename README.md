@@ -2,8 +2,6 @@
 
 This is a marketplace for Dickinson Student to trade, sell, or buy any items at ease on one common platform. The website is only available for Dickinson students, members, and faculties who possess a @dickinson.edu email.
 
-Dson Market is available under the "Update License", and contributions, in the form of bug reports, feature requests, and code contributions, are welcome.
-
 ## Installation and Usage ##
 
 See [USAGE.md](USAGE.md).
