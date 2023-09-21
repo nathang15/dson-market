@@ -1,10 +1,11 @@
-import ProfilePage from '@/pages/profile'
-import React from 'react'
+/* eslint-disable require-jsdoc */
+import ProfilePage from '@/pages/profile';
+import React from 'react';
 
 function ProfileAbout() {
   return (
     <ProfilePage/>
-  )
+  );
 }
 
-export default ProfileAbout
+export default ProfileAbout;

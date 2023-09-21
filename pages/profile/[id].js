@@ -1,8 +1,9 @@
-import React from 'react'
+/* eslint-disable require-jsdoc */
+import React from 'react';
 import ProfilePage from '../profile';
 
-function Id(){
-  return <ProfilePage/>
+function Id() {
+  return <ProfilePage/>;
 }
 
-export default Id
+export default Id;
