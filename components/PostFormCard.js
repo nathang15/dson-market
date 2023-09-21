@@ -1,14 +1,21 @@
-import { UserContext } from '@/contexts/UserContext';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import React, { useContext, useEffect, useState } from 'react';
+import {UserContext} from '@/contexts/UserContext';
+import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
+import React, {useContext, useEffect, useState} from 'react';
 import Avatar from './Avatar';
-import Card from "./Card";
+import Card from './Card';
 import {
   CameraIcon,
-} from "@heroicons/react/outline";
-
+} from '@heroicons/react/outline';
 import PreLoader from './PreLoader';
-import Link from "next/link";
+import Link from 'next/link';
+
+/**
+ * PostFormCard component for creating and posting new content.
+ * @component
+ * @param {Object} props - The component's props.
+ * @param {function} props.onPost - A callback function to execute after a successful post.
+ * @return {JSX.Element|null} - Returns the PostFormCard component JSX or null if the post is successful.
+ */
 function PostFormCard({onPost}) {
   const supabase = useSupabaseClient();
   const [uploads, setUploads] = useState([]);
@@ -19,25 +26,29 @@ function PostFormCard({onPost}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isPosted, setIsPosted] = useState(false);
 
+  /**
+ * Create a new post based on the content and photos provided.
+ * Accepted post must follow the rule
+ */
   function createPost() {
     const lowerContent = content.toLowerCase();
     const hasWTB = /(^|\s)#wtb(\s|$)/i.test(lowerContent);
     const hasWTS = /(^|\s)#wts(\s|$)/i.test(lowerContent);
-    const hasWTBlong = /(^|\s)#wanttobuy(\s|$)/i.test(lowerContent); // New regex for #wanttobuy and #wanttosell
+    const hasWTBlong = /(^|\s)#wanttobuy(\s|$)/i.test(lowerContent);
     const hasWTSlong = /(^|\s)#wanttosell(\s|$)/i.test(lowerContent);
     if (!hasWTB && !hasWTS && !hasWTSlong && !hasWTBlong) {
       setErrorMessage('Invalid post input. Please include either #wtb, #wts, #wanttobuy, or #wanttosell.');
       return;
     }
-  
+
     if (hasWTS | hasWTSlong && uploads.length === 0) {
       setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
       return;
     }
-  
+
     const words = content.trim().split(/\s+/);
-    const otherWords = words.filter(word => !word.startsWith('#'));
-  
+    const otherWords = words.filter((word) => !word.startsWith('#'));
+
     if (otherWords.length === 0) {
       setErrorMessage('Invalid post input. Please include content in your post.');
       return;
@@ -46,8 +57,8 @@ function PostFormCard({onPost}) {
       author: session.user.id,
       content,
       photos: uploads,
-    }).then(response => {
-      if(!response.error){
+    }).then((response) => {
+      if (!response.error) {
         setContent('');
         setErrorMessage('');
         setUploads([]);
@@ -56,16 +67,17 @@ function PostFormCard({onPost}) {
           onPost();
         }
       }
-    })
+    });
   }
-  
 
+  /**
+ * Cancel the current post form and reset form values.
+ */
   function cancelPost() {
     setContent('');
     setErrorMessage('');
     setUploads([]);
     adjustTextareaHeight(null); // Pass null to reset the textarea height
-
   }
 
   useEffect(() => {
@@ -74,29 +86,33 @@ function PostFormCard({onPost}) {
     }
   }, [isPosted]);
 
+  /**
+ * Add photos to the list of uploads for the post.
+ * @param {Event} ev - The input event containing selected files.
+ */
   async function addPhotos(ev) {
     const files = ev.target.files;
     if (files.length > 0) {
       if (files.length > 8) {
         // Display an error message when the limit is exceeded
-        alert("You can only upload a maximum of 8 photos at a time.");
+        alert('You can only upload a maximum of 8 photos at a time.');
         return;
       }
       setIsUploading(true);
       for (const file of files) {
         if (uploads.length >= 8) {
           // If the limit is reached during the loop, break out of it
-          alert("You can only upload a maximum of 8 photos at a time.");
+          alert('You can only upload a maximum of 8 photos at a time.');
           break;
         }
         const newName = Date.now() + file.name;
         const result = await supabase
-          .storage
-          .from('photos')
-          .upload(newName, file);
+            .storage
+            .from('photos')
+            .upload(newName, file);
         if (result.data) {
           const url = process.env.NEXT_PUBLIC_SUPABASE_URL + '/storage/v1/object/public/photos/' + result.data.path;
-          setUploads(prevUploads =>[...prevUploads,url]);
+          setUploads((prevUploads) =>[...prevUploads, url]);
         } else {
           console.log(result);
         }
@@ -133,7 +149,7 @@ function PostFormCard({onPost}) {
   }, [content]);
 
   useEffect(() => {
-    const handleKeyDown = e => {
+    const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         cancelPost();
       }
@@ -146,8 +162,12 @@ function PostFormCard({onPost}) {
     };
   }, []);
 
+  /**
+ * Remove the selected photo from the chain of photos to be posted
+ * @param {int} index - The index of the selected photo.
+ */
   function removePhoto(index) {
-    setUploads(prevUploads => prevUploads.filter((_, i) => i !== index));
+    setUploads((prevUploads) => prevUploads.filter((_, i) => i !== index));
   }
 
   if (isPosted) {
@@ -156,49 +176,49 @@ function PostFormCard({onPost}) {
 
   return (
     <Card>
-        <div className='flex gap-2 max-w-2xl'>
-          <div className='flex items-center'>
-            <Link href={'/profile/' + profile.id}>  
-              <span className='cursor-pointer'>
-                <Avatar url={profile.avatar} />
-              </span>
-            </Link>
-          </div>
-            {profile.name ? (
+      <div className='flex gap-2 max-w-2xl'>
+        <div className='flex items-center'>
+          <Link href={'/profile/' + profile.id}>
+            <span className='cursor-pointer'>
+              <Avatar url={profile.avatar} />
+            </span>
+          </Link>
+        </div>
+        {profile.name ? (
               <textarea
-              value={content}
-              onChange={handleTextareaChange}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  const { selectionStart, selectionEnd } = e.target;
-                  const newContent = `${content.substring(0, selectionStart)}\n${content.substring(selectionStart, selectionEnd)}${content.substring(selectionEnd)}`;
-                  const newCursorPosition = selectionStart + 1;
-                  setContent(newContent);
-                  adjustTextareaHeight(e.target);
-                  setTimeout(() => {
-                    e.target.setSelectionRange(newCursorPosition, newCursorPosition);
-                  }, 0);
-                }
-              }}
-              className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white md:text-md text-sm"
-              placeholder = {`What do you want to sell, ${profile.name}?`}
-              onFocus={(e) => e.target.placeholder = ""}
-              onBlur={(e) => e.target.placeholder = `What do you want to sell, ${profile.name}?`}
-            />
-            
+                value={content}
+                onChange={handleTextareaChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    const {selectionStart, selectionEnd} = e.target;
+                    const newContent = `${content.substring(0, selectionStart)}\n${content.substring(selectionStart, selectionEnd)}${content.substring(selectionEnd)}`;
+                    const newCursorPosition = selectionStart + 1;
+                    setContent(newContent);
+                    adjustTextareaHeight(e.target);
+                    setTimeout(() => {
+                      e.target.setSelectionRange(newCursorPosition, newCursorPosition);
+                    }, 0);
+                  }
+                }}
+                className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white md:text-md text-sm"
+                placeholder = {`What do you want to sell, ${profile.name}?`}
+                onFocus={(e) => e.target.placeholder = ''}
+                onBlur={(e) => e.target.placeholder = `What do you want to sell, ${profile.name}?`}
+              />
+
             ) : (
               <div className="mt-2 font-semibold flex items-center text-red-500">
                 Please set a name before you can sell.
               </div>
             )}
+      </div>
+      {isUploading && (
+        <div className='grow'>
+          <PreLoader/>
         </div>
-        {isUploading && (
-          <div className='grow'>
-            <PreLoader/>
-          </div>
-        )}
-        {uploads.length > 0 && (
+      )}
+      {uploads.length > 0 && (
         <div className="flex gap-2 mt-2">
           {uploads.map((upload, index) => (
             <div key={index} className="relative">
@@ -224,32 +244,32 @@ function PostFormCard({onPost}) {
           ))}
         </div>
       )}
-        
-        <div className='flex gap-5 items-center mt-2'>
-          <div>
-            {profile.name && (
-              <label className='flex gap-1 mt-2 hover:scale-110 cursor-pointer'>
-                <input type="file" className='hidden' multiple onChange={addPhotos}/>
-                <CameraIcon className='h-7 text-red-500 dark:text-gray-300'/>
-                <span className='hidden md:block mt-1 font-semibold text-gray-400 dark:text-gray-300'>Photos</span>
-              </label>
-            )}
-          </div>
-          <div className='grow text-right'>
-            {profile.name && (
-              <>
-                {content && (
-                  <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 mr-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
-                )}
-                <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Post</button>               
-              </>
-            )}
-            {errorMessage && (
-              <p className='text-red-500 text-sm mt-1'>{errorMessage}</p>
-            )}
-          </div>
+
+      <div className='flex gap-5 items-center mt-2'>
+        <div>
+          {profile.name && (
+            <label className='flex gap-1 mt-2 hover:scale-110 cursor-pointer'>
+              <input type="file" className='hidden' multiple onChange={addPhotos}/>
+              <CameraIcon className='h-7 text-red-500 dark:text-gray-300'/>
+              <span className='hidden md:block mt-1 font-semibold text-gray-400 dark:text-gray-300'>Photos</span>
+            </label>
+          )}
         </div>
-        
+        <div className='grow text-right'>
+          {profile.name && (
+            <>
+              {content && (
+                <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 mr-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
+              )}
+              <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Post</button>
+            </>
+          )}
+          {errorMessage && (
+            <p className='text-red-500 text-sm mt-1'>{errorMessage}</p>
+          )}
+        </div>
+      </div>
+
     </Card>
   );
 }
