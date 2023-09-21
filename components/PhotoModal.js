@@ -1,24 +1,49 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-function PhotoModal({ photo, onClose, onNavigateLeft, onNavigateRight }) {
+/**
+ * PhotoModal component displays an enlarged photo with navigation and a close button.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.photo - The URL of the photo to display.
+ * @param {Function} props.onClose - Function to close the modal.
+ * @param {Function} props.onNavigateLeft - Function to navigate to the previous photo.
+ * @param {Function} props.onNavigateRight - Function to navigate to the next photo.
+ * @return {React.JSX} - Render the Photo Modal
+ */
+function PhotoModal({photo, onClose, onNavigateLeft, onNavigateRight}) {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  /**
+   * Handle mouse hover event to show the close button tooltip.
+   */
   const handleMouseHover = () => {
     setShowTooltip(true);
   };
 
+  /**
+   * Handle mouse leave event to hide the close button tooltip.
+   */
   const handleMouseLeave = () => {
     setShowTooltip(false);
   };
 
+  /**
+   * Handle close button click event.
+   */
   const handleButtonClick = () => {
     onClose();
   };
 
+  /**
+   * Handle left arrow button click event.
+   */
   const handleLeftArrowClick = () => {
     onNavigateLeft();
   };
 
+  /**
+   * Handle right arrow button click event.
+   */
   const handleRightArrowClick = () => {
     onNavigateRight();
   };
@@ -45,20 +70,20 @@ function PhotoModal({ photo, onClose, onNavigateLeft, onNavigateRight }) {
               )}
             </button>
             <button
-                className="absolute top-1/2 transform -translate-y-1/2 left-4 text-white hover:text-gray-300 hover:scale-110 bg-gray-400 rounded-full transition-all"
-                onClick={handleLeftArrowClick}
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-                </svg>
-                </button>
-                <button
-                className="absolute top-1/2 transform -translate-y-1/2 right-4 text-white hover:text-gray-300 hover:scale-110 bg-gray-400 rounded-full  transition-all"
-                onClick={handleRightArrowClick}
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" className="w-8 h-8">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                </svg>
+              className="absolute top-1/2 transform -translate-y-1/2 left-4 text-white hover:text-gray-300 hover:scale-110 bg-gray-400 rounded-full transition-all"
+              onClick={handleLeftArrowClick}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              className="absolute top-1/2 transform -translate-y-1/2 right-4 text-white hover:text-gray-300 hover:scale-110 bg-gray-400 rounded-full  transition-all"
+              onClick={handleRightArrowClick}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
 
           </div>

@@ -1,13 +1,15 @@
-import Card from '@/components/Card';
-import Layout from '@/components/Layout';
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Head from "next/head";
-import Image from "next/legacy/image";
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { LockClosedIcon } from '@heroicons/react/solid';
-import Link from 'next/link';
+/* eslint-disable no-unused-vars */
+import React, {useState} from 'react';
+import {useRouter} from 'next/router';
+import Head from 'next/head';
+import Image from 'next/legacy/image';
+import {useSupabaseClient} from '@supabase/auth-helpers-react';
+import {LockClosedIcon} from '@heroicons/react/solid';
 
+/**
+ * Login Page
+ * @return {JSX.Element} The rendered login page
+ */
 function LoginPage() {
   const router = useRouter();
   const supabase = useSupabaseClient();
@@ -18,22 +20,31 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [message, setMessage] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  // const [setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const logo = "/logo.png";
+  const logo = '/logo.png';
 
-  async function loginWithGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-  }
+  /**
+   * Logs in the user using Google OAuth.
+   * @async
+  */
+  // async function loginWithGoogle() {
+  //   await supabase.auth.signInWithOAuth({
+  //     provider: 'google',
+  //   });
+  // }
 
+  /**
+   * Signs in the user with an email and password.
+   * @async
+  */
   async function signInWithEmail() {
     if (!email.endsWith('@dickinson.edu')) {
       setErrorMessage('Invalid email domain');
       return;
     }
     setIsLoggingIn(true); // Start the login process
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const {data, error} = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -46,6 +57,10 @@ function LoginPage() {
     setIsLoggingIn(false);
   }
 
+  /**
+   * Signs up the user with an email and password.
+   * @async
+  */
   async function signUpWithEmail() {
     if (!email.endsWith('@dickinson.edu')) {
       setErrorMessage('Must use dickinson email');
@@ -55,7 +70,7 @@ function LoginPage() {
       setErrorMessage('Passwords do not match');
       return;
     }
-    const { data, error } = await supabase.auth.signUp({
+    const {data, error} = await supabase.auth.signUp({
       email,
       password,
     });
@@ -68,26 +83,29 @@ function LoginPage() {
     setErrorMessage('');
   }
 
+  /**
+ * Toggles between sign-up and sign-in modes.
+ */
   function toggleFormMode() {
     setIsSignUp(!isSignUp);
   }
 
   return (
-    <div className="flex flex-col h-screen" style={{ backgroundColor: '#F2F2F2', fontFamily: 'Roboto, sans-serif' }}>
+    <div className="flex flex-col h-screen" style={{backgroundColor: '#F2F2F2', fontFamily: 'Roboto, sans-serif'}}>
       <Head>
         <title>Dson Market — Secure</title>
       </Head>
       <header className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 px-4 shadow-md">
-          <div className="px-4 flex items-center">
-            <Image src={logo} height={40} width={40} objectFit="fixed" />
-            <h1 className="text-xl font-bold ml-2">DSON MARKET</h1>
-          </div>
-          <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
+        <div className="px-4 flex items-center">
+          <Image src={logo} height={40} width={40} objectFit="fixed" />
+          <h1 className="text-xl font-bold ml-2">DSON MARKET</h1>
+        </div>
+        <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
             Request Demo
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
-          </button>
+        </button>
       </header>
       <main className="flex-grow">
         <div className="flex items-center justify-center h-full">
@@ -210,14 +228,6 @@ function LoginPage() {
                 </div>
               </div>
             </div>
-            {/* <div className="mt-16 hidden sm:block">
-              <Image
-                src={logo}
-                height={400}
-                width={400}
-                objectFit="contain"
-              />
-            </div> */}
           </div>
         </div>
       </main>
