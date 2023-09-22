@@ -27,9 +27,9 @@ function PostFormCard({onPost}) {
   const [isPosted, setIsPosted] = useState(false);
 
   /**
- * Create a new post based on the content and photos provided.
- * Accepted post must follow the rule
- */
+   * Create a new post based on the content and photos provided.
+   * Accepted post must follow the rule
+   */
   function createPost() {
     const lowerContent = content.toLowerCase();
     const hasWTB = /(^|\s)#wtb(\s|$)/i.test(lowerContent);
@@ -255,11 +255,11 @@ function PostFormCard({onPost}) {
             </label>
           )}
         </div>
-        <div className='grow text-right'>
+        <div className='grow text-right flex justify-end gap-2'>
           {profile.name && (
             <>
               {content && (
-                <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 mr-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
+                <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
               )}
               <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Post</button>
             </>
