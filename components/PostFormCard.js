@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import PreLoader from './PreLoader';
 import Link from 'next/link';
+import PostConfirmationPop from './PostConfirmationPop';
 
 /**
  * PostFormCard component for creating and posting new content.
@@ -25,7 +26,7 @@ function PostFormCard({onPost}) {
   const {profile} = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
   const [isPosted, setIsPosted] = useState(false);
-
+  const [showConfirmation, setShowConfirmation] = useState(false);
   /**
    * Create a new post based on the content and photos provided.
    * Accepted post must follow the rule
@@ -53,6 +54,33 @@ function PostFormCard({onPost}) {
       setErrorMessage('Invalid post input. Please include content in your post.');
       return;
     }
+    if (hasWTS || hasWTSlong) {
+      // Show the confirmation popup for #wts posts
+      setShowConfirmation(true);
+      return;
+    }
+    supabase.from('posts').insert({
+      author: session.user.id,
+      content,
+      photos: uploads,
+    }).then((response) => {
+      if (!response.error) {
+        setContent('');
+        setErrorMessage('');
+        setUploads([]);
+        setIsPosted(true);
+        if (onPost) {
+          onPost();
+        }
+      }
+    });
+  }
+
+  /**
+   * Create a new post based on the content and photos provided.
+   * Accepted post must follow the rule
+   */
+  function createPostAfterConfirm() {
     supabase.from('posts').insert({
       author: session.user.id,
       content,
@@ -225,7 +253,7 @@ function PostFormCard({onPost}) {
               <img src={upload} alt="" className="w-auto h-24 rounded-md" />
               <button
                 onClick={() => removePhoto(index)}
-                className="absolute top-0 right-0 p-1 bg-white rounded-full text-gray-500 hover:bg-gray-200 transition"
+                className="absolute top-0 right-0 p-1 bg-white rounded-full text-gray-500 hover:bg-gray-200 transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -248,20 +276,20 @@ function PostFormCard({onPost}) {
       <div className='flex gap-5 items-center mt-2'>
         <div>
           {profile.name && (
-            <label className='flex gap-1 mt-2 hover:scale-110 cursor-pointer'>
+            <label className='flex gap-1 mt-2 hover:scale-110 transition-all cursor-pointer'>
               <input type="file" className='hidden' multiple onChange={addPhotos}/>
               <CameraIcon className='h-7 text-red-500 dark:text-gray-300'/>
               <span className='hidden md:block mt-1 font-semibold text-gray-400 dark:text-gray-300'>Photos</span>
             </label>
           )}
         </div>
-        <div className='grow text-right flex justify-end gap-2'>
+        <div className='grow text-right flex-col justify-end items-center'>
           {profile.name && (
             <>
               {content && (
-                <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
+                <button onClick={cancelPost} className='mr-2 transition-all bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
               )}
-              <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Post</button>
+              <button onClick={createPost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2 transition-all'>Post</button>
             </>
           )}
           {errorMessage && (
@@ -269,7 +297,19 @@ function PostFormCard({onPost}) {
           )}
         </div>
       </div>
-
+      {showConfirmation && (
+        <PostConfirmationPop
+          onConfirm={() => {
+            // Handle confirmation and post action here
+            createPostAfterConfirm();
+            setShowConfirmation(false);
+          }}
+          onCancel={() => {
+            // Handle cancel action here
+            setShowConfirmation(false);
+          }}
+        />
+      )}
     </Card>
   );
 }
