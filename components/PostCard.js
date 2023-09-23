@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 import React, {useContext, useEffect, useState} from 'react';
 import Card from './Card';
 import Avatar from './Avatar';
@@ -34,7 +36,7 @@ import PhotoModal from './PhotoModal';
  * @param {Object} props.profiles - The author's profile information.
  * @return {React.Element} - The rendered component.
  */
-function PostCard({id, content, created_at, photos, sold, profiles: authorProfile}) {
+function PostCard({id, content, created_at, photos, sold, profiles: authorProfile, onPost}) {
   // State variables
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {profile: myProfile} = useContext(UserContext);
@@ -48,18 +50,121 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
-  const [setIsUploading] = useState();
-  // const [isUploading, setIsUploading] = useState();
+  const [isUploading, setIsUploading] = useState();
   const [uploads, setUploads] = useState([]);
-  const [setIsPosted] = useState(false);
-  // const [isPosted, setIsPosted] = useState(false);
+  const [isPosted, setIsPosted] = useState(false);
+  const [isPostedComment, setIsPostedComment] = useState(false);
   const session = useSession();
+  const [newContent, setNewContent] = useState(content);
+  const [isEdit, setIsEdit] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   // Fetch likes, comments, and check if the post is saved on component mount or when myProfile.id changes
   useEffect(() => {
     fetchLikes();
     fetchComments();
     if (myProfile?.id) fetchIsSaved();
   }, [myProfile?.id]);
+
+  /**
+   * Create a new post based on the content and photos provided.
+   * Accepted post must follow the rule
+   */
+  function updatePost() {
+    const lowerContent = newContent.toLowerCase();
+    const hasWTB = /(^|\s)#wtb(\s|$)/i.test(lowerContent);
+    const hasWTS = /(^|\s)#wts(\s|$)/i.test(lowerContent);
+    const hasWTBlong = /(^|\s)#wanttobuy(\s|$)/i.test(lowerContent);
+    const hasWTSlong = /(^|\s)#wanttosell(\s|$)/i.test(lowerContent);
+    if (!hasWTB && !hasWTS && !hasWTSlong && !hasWTBlong) {
+      setErrorMessage('Invalid post input. Please include either #wtb, #wts, #wanttobuy, or #wanttosell.');
+      return;
+    }
+
+    if (hasWTS | hasWTSlong && (photos.length + uploads.length) === 0) {
+      setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
+      return;
+    }
+
+    const words = newContent.trim().split(/\s+/);
+    const otherWords = words.filter((word) => !word.startsWith('#'));
+
+    if (otherWords.length === 0) {
+      setErrorMessage('Invalid post input. Please include content in your post.');
+      return;
+    }
+    supabase.from('posts').update({
+      content: newContent,
+    }).eq('id', id).then((response) => {
+      if (!response.error) {
+        setNewContent(newContent);
+        setErrorMessage('');
+        // setUploads([]);
+        setIsPosted(true);
+        if (onPost) {
+          onPost();
+          setIsEdit(false);
+        }
+      }
+    });
+  }
+
+  /**
+ * Cancel the current post form and reset form values.
+ */
+  function cancelPost() {
+    setNewContent(content);
+    setErrorMessage('');
+    setIsEdit(false);
+    // setUploads([]);
+    adjustTextareaHeight(null); // Pass null to reset the textarea height
+  }
+
+  useEffect(() => {
+    if (isPosted) {
+      setIsPosted(false); // Reset the isPosted state to allow reloading the component
+    }
+  }, [isPosted]);
+
+  const handleTextareaChange = (e) => {
+    setNewContent(e.target.value);
+    adjustTextareaHeight(e.target);
+  };
+
+  const adjustTextareaHeight = (textarea) => {
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    } else {
+      const defaultHeight = '70px'; // Set the default height here
+      const textareas = document.getElementsByTagName('textarea');
+      for (let i = 0; i < textareas.length; i++) {
+        textareas[i].style.height = defaultHeight;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (newContent) {
+      const textarea = document.getElementById('post-content');
+      if (textarea) {
+        adjustTextareaHeight(textarea);
+      }
+    }
+  }, [newContent]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        cancelPost();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   /**
    * Fetches the saved status each posts (check if the user has saved the post or not)
@@ -257,7 +362,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
           fetchComments();
           setCommentText('');
           setUploads([]);
-          setIsPosted(true);
+          setIsPostedComment(true);
         });
   }
 
@@ -359,7 +464,6 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
     } catch (error) {
       console.error('Delete request error:', error);
     }
-    window.location.reload();
   };
 
   // The maximum number of visible comments is 5
@@ -433,6 +537,17 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
     setUploads((prevUploads) => prevUploads.filter((_, i) => i !== index));
   }
 
+  /**
+   * Set edit post status
+   */
+  function setEditPost() {
+    setIsEdit(true);
+  }
+
+  if ( isPosted == true ) {
+    setIsPosted(false);
+    setIsEdit(false);
+  }
 
   return (
     <Card>
@@ -489,10 +604,10 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
                   </button>
                   {/* Edit button */}
                   {myProfile?.id && myProfile.id === authorProfile.id && (
-                    <button className='w-full -my-2'>
+                    <button onClick={isEdit == true ? cancelPost : setEditPost} className='w-full -my-2'>
                       <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white dark:text-lightBG -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300'>
                         <PencilIcon className="h-6 text-gray-800 dark:text-lightBG group-hover:text-white" />
-                        Edit Listing
+                        {isEdit == true ? 'Cancel Edit' : 'Edit Post'}
                       </span>
                     </button>
                   )}
@@ -548,7 +663,41 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
 
       {/* Post content */}
       <div>
+        {isEdit == true ? (
+        <textarea
+          value={newContent}
+          onChange={handleTextareaChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              const {selectionStart, selectionEnd} = e.target;
+              const editContent = `${newContent.substring(0, selectionStart)}\n${newContent.substring(selectionStart, selectionEnd)}${newContent.substring(selectionEnd)}`;
+              const newCursorPosition = selectionStart + 1;
+              setNewContent(editContent);
+              adjustTextareaHeight(e.target);
+              setTimeout(() => {
+                e.target.setSelectionRange(newCursorPosition, newCursorPosition);
+              }, 0);
+            }
+          }}
+          className="mt-3 w-full h-full px-3 py-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white"
+        />
+        ) :
+        (
         <pre className='whitespace-pre-wrap font-sans my-3 dark:text-lightBG'>{content}</pre>
+        )
+        }
+        <div className='grow text-right flex-col justify-end items-center mb-3'>
+          {isEdit == true && (
+            <>
+              <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
+              <button onClick={updatePost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Update</button>
+            </>
+          )}
+          {errorMessage && (
+            <p className='text-red-500 text-sm mt-1'>{errorMessage}</p>
+          )}
+        </div>
         {/* Post photos */}
         {photos?.length > 0 && (
           <div>
