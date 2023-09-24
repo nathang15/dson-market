@@ -691,7 +691,9 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
           {isEdit == true && (
             <>
               <button onClick={cancelPost} className='bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-1 rounded-md mt-2 dark:bg-customBlack border-2 dark:border-customBlack2 hover:scale-110 dark:text-lightBG'>Cancel</button>
-              <button onClick={updatePost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Update</button>
+              {newContent != content && (
+                <button onClick={updatePost} className='bg-red-500 hover:scale-110 text-white px-6 py-1 rounded-md mt-2 dark:bg-customBlack dark:border-customBlack2 dark:border-2'>Update</button>
+              )}
             </>
           )}
           {errorMessage && (
