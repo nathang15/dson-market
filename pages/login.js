@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/legacy/image';
 import {useSupabaseClient} from '@supabase/auth-helpers-react';
 import {LockClosedIcon} from '@heroicons/react/solid';
+import {createClient} from '@supabase/supabase-js';
 
 /**
  * Login Page
@@ -12,7 +13,7 @@ import {LockClosedIcon} from '@heroicons/react/solid';
  */
 function LoginPage() {
   const router = useRouter();
-  const supabase = useSupabaseClient();
+  // const supabase = useSupabaseClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,6 +24,11 @@ function LoginPage() {
   // const [setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const logo = '/logo.png';
+
+  const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
 
   /**
    * Logs in the user using Google OAuth.
@@ -73,13 +79,16 @@ function LoginPage() {
     const {data, error} = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: window.location.origin,
+      },
     });
     if (error) {
       setErrorMessage('Sign up failed');
       setMessage('');
       return;
     }
-    setMessage('Please check your email for a confirmation link in 60 seconds!');
+    setMessage('Please check your email for a confirmation link in 1-2 minutes!');
     setErrorMessage('');
   }
 
