@@ -62,7 +62,7 @@ function Sidebar() {
         <SidebarRow active={pathname === '/saved'} Icon={BookmarkIcon} title="Saved" />
       </Link>
       <Link href="/guide" className="block md:px-3 px-0">
-        <SidebarRow active={pathname === '/guide'} Icon={BookOpenIcon} title="Guideline" />
+        <SidebarRow active={pathname === '/guide'} Icon={BookOpenIcon} title="Guidelines" />
       </Link>
       <Link href="/feedback" className="block md:px-3 px-0">
         <SidebarRow active={pathname === '/feedback'} Icon={PencilAltIcon} title="Project Feedback" />
