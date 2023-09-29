@@ -80,7 +80,7 @@ function LoginPage() {
       setMessage('');
       return;
     }
-    setMessage('Please check your email for a confirmation link in 2 minutes!');
+    setMessage('You should now be able to log in!');
     setErrorMessage('');
   }
 
