@@ -76,7 +76,7 @@ function LoginPage() {
       password,
     });
     if (error) {
-      setErrorMessage('Sign up failed');
+      setErrorMessage('You have already created an account!');
       setMessage('');
       return;
     }
