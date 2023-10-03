@@ -128,6 +128,7 @@ function LoginPage() {
    */
   function closeOtpPopup() {
     setShowOtpPopup(false);
+    setMessage('');
     setOtpInput('');
     setOtpError('');
   }
