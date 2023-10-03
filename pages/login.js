@@ -16,11 +16,15 @@ function LoginPage() {
   const supabase = useSupabaseClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [message, setMessage] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [showOtpPopup, setShowOtpPopup] = useState(false);
+  const [otpInput, setOtpInput] = useState('');
+  const [otpError, setOtpError] = useState('');
   // const [setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const logo = '/logo.png';
@@ -80,7 +84,8 @@ function LoginPage() {
       setMessage('');
       return;
     }
-    setMessage('You should now be able to log in!');
+    setMessage('Please wait 1-2 minutes to confirm your email!');
+    setShowOtpPopup(true);
     setErrorMessage('');
   }
 
@@ -89,6 +94,41 @@ function LoginPage() {
  */
   function toggleFormMode() {
     setIsSignUp(!isSignUp);
+  }
+
+  /**
+   * Handle the OTP input change.
+   * @param {Event} e - event
+   */
+  function handleOtpInputChange(e) {
+    setOtpInput(e.target.value);
+  }
+
+  /**
+ * Toggles between sign-up and sign-in modes.
+ */
+  async function verifyOTP() {
+    // Check if the entered OTP is valid (e.g., a 6-digit number)
+    if (/^\d{6}$/.test(otpInput)) {
+      // Handle successful OTP submission here.
+      // You can send the OTP to the server for verification if needed.
+      // Once verified, you can proceed with user registration.
+      // For now, we'll just log the OTP and close the popup.
+      console.log('Entered OTP:', otpInput);
+      const {data, error} = await supabase.auth.verifyOtp({email, token: otpInput, type: 'email'});
+      setShowOtpPopup(false);
+    } else {
+      setOtpError('Invalid OTP. Please enter a 6-digit number.');
+    }
+  }
+
+  /**
+   * Close the OTP input popup.
+   */
+  function closeOtpPopup() {
+    setShowOtpPopup(false);
+    setOtpInput('');
+    setOtpError('');
   }
 
   return (
@@ -232,6 +272,29 @@ function LoginPage() {
           </div>
         </div>
       </main>
+      {/* OTP Input Popup */}
+      {showOtpPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            {message && <p className="text-green-500 flex justify-center">{message}</p>}
+            <h2 className="text-xl font-semibold mb-4">Enter OTP</h2>
+            <input
+              type="text"
+              value={otpInput}
+              onChange={handleOtpInputChange}
+              className="w-full border p-2 mb-2"
+              placeholder="Enter OTP"
+            />
+            {otpError && <p className="text-red-500 mb-2">{otpError}</p>}
+            <button onClick={verifyOTP} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+              Submit
+            </button>
+            <button onClick={closeOtpPopup} className="bg-gray-300 text-gray-700 ml-2 px-4 py-2 rounded hover:bg-gray-400">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
