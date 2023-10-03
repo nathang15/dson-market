@@ -118,6 +118,7 @@ function LoginPage() {
       const {data, error} = await supabase.auth.verifyOtp({email, token: otpInput, type: 'email'});
       setShowOtpPopup(false);
     } else {
+      setMessage('');
       setOtpError('Invalid OTP. Please enter a 6-digit number.');
     }
   }
@@ -276,7 +277,7 @@ function LoginPage() {
       {showOtpPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            {message && <p className="text-green-500 flex justify-center">{message}</p>}
+            {message && <p className="text-green-500 flex justify-center mb-2">{message}</p>}
             <h2 className="text-xl font-semibold mb-4">Enter OTP</h2>
             <input
               type="text"
