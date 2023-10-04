@@ -74,9 +74,11 @@ function Feed() {
       <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
         <UserContext.Provider value={{profile}}>
           <PostFormCard onPost={fetchPosts}/>
-          {posts?.length > 0 && posts.map((post) => (
-            <PostCard key={post.id}{...post} />
-          ))}
+          {posts?.length > 0 ? (
+            posts.map((post) => <PostCard key={post.id} {...post} />)
+          ) : (
+            <p className="dark:text-lightBG text-darkBG text-center md:text-2xl text-lg font-bold">Be the first one to post!</p>
+          )}
         </UserContext.Provider>
       </div>
     </div>
