@@ -6,6 +6,11 @@ import Image from 'next/legacy/image';
 import {useSupabaseClient} from '@supabase/auth-helpers-react';
 import {LockClosedIcon} from '@heroicons/react/solid';
 import {createClient} from '@supabase/supabase-js';
+import {
+  SunIcon,
+  MoonIcon,
+} from '@heroicons/react/outline';
+import useColorMode from '@/hooks/useColorMode';
 
 /**
  * Login Page
@@ -28,7 +33,7 @@ function LoginPage() {
   // const [setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const logo = '/logo.png';
-
+  const [colorMode, setColorMode] = useColorMode();
   /**
    * Logs in the user using Google OAuth.
    * @async
@@ -133,24 +138,44 @@ function LoginPage() {
     setOtpError('');
   }
 
+  /**
+   * Close the OTP input popup.
+   */
+  function openOtpPopup() {
+    setShowOtpPopup(true);
+    setMessage('');
+    setOtpInput('');
+    setOtpError('');
+  }
+
   return (
     <div className="flex flex-col h-screen" style={{backgroundColor: '#F2F2F2', fontFamily: 'Roboto, sans-serif'}}>
       <Head>
         <title>Dson Market — Secure</title>
       </Head>
-      <header className="sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 px-4 shadow-md">
+      <header className="sticky top-0 z-50 bg-white border-2 border-lightBorder dark:border-customBlack2 dark:bg-customBlack flex items-center p-2 lg:px-5 px-4 shadow-md">
         <div className="px-4 flex items-center">
           <Image src={logo} height={40} width={40} objectFit="fixed" />
-          <h1 className="text-xl font-bold ml-2">DSON MARKET</h1>
+          <h1 className="text-xl font-bold ml-2 dark:text-lightBG text-darkBG">DSON MARKET</h1>
         </div>
-        <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
+        {/* <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
             Request Demo
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
+        </button> */}
+        <button
+          className="flex gap-2 items-center ml-auto p-2 rounded-full bg-transparent hover:scale-125 transition-all"
+          onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+        >
+          {colorMode === 'dark' ? (
+          <SunIcon className="h-6 w-6 dark:text-white text-darkBG" />
+        ) : (
+          <MoonIcon className="h-6 w-6" />
+        )}
         </button>
       </header>
-      <main className="flex-grow">
+      <main className="flex-grow dark:bg-darkBG">
         <div className="flex items-center justify-center h-full">
           <div className="flex justify-center gap-20 w-full">
             <div className="flex flex-col items-center">
@@ -169,17 +194,17 @@ function LoginPage() {
                 )}
               </div>
               <div className='mt-5 grow'>
-                <div className='bg-white rounded-xl mb-5 w-full sm:w-auto'>
+                <div className='border-2 border-lightBorder dark:border-customBlack2 dark:bg-customBlack bg-white rounded-xl mb-5 w-full sm:w-auto'>
                   {isSignUp ? (
-                    <h1 className="p-5 font-bold text-4xl text-center mt-3 -mb-5">
+                    <h1 className="p-5 font-bold text-4xl text-center mt-3 -mb-5 dark:text-lightBG text-darkBG">
                       Sign Up
                     </h1>
                   ) : (
-                    <h1 className="p-5 font-bold text-4xl text-center mt-3 -mb-5">
+                    <h1 className="p-5 font-bold text-4xl text-center mt-3 -mb-5 dark:text-lightBG text-darkBG">
                       Sign In
                     </h1>
                   )}
-                  <div className='rounded-md overflow-hidden'>
+                  <div className='rounded-md overflow-hidden dark:text-lightBG text-darkBG'>
                     <div className="flex flex-col gap-4 p-4">
                       {message && <p className="text-green-500 flex justify-center">{message}</p>}
                       {errorMessage && <p className="text-red-500 flex justify-center">{errorMessage}</p>}
@@ -212,19 +237,19 @@ function LoginPage() {
                           e.preventDefault();
                           toggleFormMode();
                         }}
-                        className="text-gray-500 cursor-pointer mb-5 text-sm"
+                        className="text-gray-500 dark:text-gray-300 cursor-pointer text-sm"
                       >
                         {isSignUp ? (
                           <span className=''>
                             Already have an account?{' '}
-                            <span className="hover:underline hover:cursor-pointer font-semibold text-gray-900">
+                            <span className="hover:underline hover:cursor-pointer font-semibold text-gray-900 dark:text-lightBG">
                               Sign In
                             </span>
                           </span>
                         ) : (
                           <span className=''>
                             Don&apos;t have an account yet?{' '}
-                            <span className="hover:underline hover:cursor-pointer font-semibold text-gray-900">
+                            <span className="hover:underline hover:cursor-pointer font-semibold text-gray-900 dark:text-lightBG">
                               Register now!
                             </span>
                           </span>
@@ -239,6 +264,11 @@ function LoginPage() {
                           Sign In
                         </button>
                       )}
+                      {isSignUp && (
+                        <button onClick={openOtpPopup} className="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Enter OTP
+                        </button>
+                      )}
                       <span className='sm:text-sm flex justify-center mt-1'>
                         — Remember to use Dickinson email! —
                       </span>
@@ -251,21 +281,22 @@ function LoginPage() {
                         className="text-gray-800 cursor-pointer mb-4"
                       >
                         {isSignUp ? (
-                          <span className='flex justify-center gap-1'>
+                          <span className='flex justify-center gap-1 dark:text-lightBG'>
                             Already have an account?
-                            <span className="hover:underline hover:cursor-pointer font-semibold">
+                            <span className="hover:underline hover:cursor-pointer font-semibold dark:text-lightBG">
                               Sign In
                             </span>
                           </span>
                         ) : (
-                          <span className='flex justify-center gap-1'>
+                          <span className='flex justify-center gap-1 dark:text-lightBG'>
                             Don&apos;t have an account?{' '}
-                            <span className="hover:underline hover:cursor-pointer font-semibold">
+                            <span className="hover:underline hover:cursor-pointer font-semibold dark:text-lightBG ">
                               Register now
                             </span>
                           </span>
                         )}
                       </a>
+
                     </div>
                   </div>
                 </div>
