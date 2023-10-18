@@ -19,6 +19,9 @@ function Guideline() {
             </li>
             <br/>
             <span className='font-bold md:text-xl text-md'>This platform is supported by the Center for Sustainability Education.</span>
+            <li className='md:text-lg text-sm font-normal mt-2'>
+                For developers, visit <a href="https://github.com/nathang15/dson-market" className='text-red-400 font-bold underline decoration-2' target='_blank' rel="noopener noreferrer">here</a> to start contributing.
+            </li>
             <li>
               <br/>
               <p className='font-semibold underline decoration-red-500 decoration-4'>1. Respect and Courtesy:</p> Treat all members of the DsonMarket community with respect and courtesy. Be mindful of your language and interactions and recognize we prioritize inclusive practices and language. Engaging in personal attacks, harassment, or discrimination based on race, gender, religion, nationality, sexual orientation, or any other personal characteristics is forbidden and will result in elimination from the online marketplace.
@@ -72,15 +75,20 @@ function Guideline() {
             In the next update, we will introduce a private chat feature to enhance communication convenience. This will enable buyers and sellers to interact directly, discuss details, and negotiate terms more efficiently. Be sure to utilize this feature responsibly and within the boundaries of respectful communication.
             </li>
             <br/>
-            <br/>
-            <li className='md:text-xl text-lg'>
+            <li className='md:text-xl text-lg mt-1'>
             This project was built and managed by the following students and is supported by <span className='font-bold'>The Center for Sustainability Education (CSE)</span>.
             </li>
             <br/>
             <li className='md:text-md text-sm font-bold'>
               Nathan Nguyen - Class 2025
             </li>
-            <span className='dark:text-lightBG text-darkBG font-bold md:text-md text-sm flex justify-center mt-20'>© 2023 Dickinson College - The Center for Sustainability Education (CSE) • All right reserved.</span>
+            <br/>
+
+            {/* <li className='md:text-lg text-sm font-semibold'>
+                For developers, visit <a href="https://github.com/nathang15/dson-market" className='text-red-400 font-bold underline decoration-2' target='_blank' rel="noopener noreferrer">here</a> to start contributing.
+            </li> */}
+
+            <span className='dark:text-lightBG text-darkBG font-bold md:text-md text-sm flex justify-center mt-10'>© 2023 Dickinson College - The Center for Sustainability Education (CSE) • All right reserved.</span>
           </ul>
         </div>
       </UserContextProvider>
