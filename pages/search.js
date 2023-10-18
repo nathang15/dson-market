@@ -41,10 +41,10 @@ function SearchPage() {
   }, [session?.user?.id]);
 
   /**
-   * Searches for posts based on a query and updates the search results.
-   * @async
-   * @function searchPosts
-   */
+ * Searches for posts based on a query and updates the search results.
+ * @async
+ * @function searchPosts
+ */
   async function searchPosts() {
     setLoading(true);
     try {
@@ -52,12 +52,13 @@ function SearchPage() {
           .from('posts')
           .select('id, content, created_at, photos, profiles(id, avatar, name)')
           .is('parent', null)
+          .eq('sold', false) // Add this condition to filter out sold posts
           .order('created_at', {ascending: false});
 
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
-        // Split the query into individual words
+      // Split the query into individual words
         const queryWords = query.toLowerCase().split(' ');
 
         // Filter the posts based on the query containing all matching words
