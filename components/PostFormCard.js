@@ -230,9 +230,9 @@ function PostFormCard({onPost}) {
                   }
                 }}
                 className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white md:text-md text-sm"
-                placeholder = {`What do you want to sell, ${profile.name}?`}
+                placeholder = {`What do you want to sell or buy, ${profile.name}?`}
                 onFocus={(e) => e.target.placeholder = ''}
-                onBlur={(e) => e.target.placeholder = `What do you want to sell, ${profile.name}?`}
+                onBlur={(e) => e.target.placeholder = `What do you want to sell or buy, ${profile.name}?`}
               />
 
             ) : (
