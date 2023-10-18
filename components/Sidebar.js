@@ -44,11 +44,20 @@ function Sidebar() {
     });
   }
 
+  /**
+   * Handles the user logout process and redirects to the homepage.
+   */
+  async function login() {
+    window.location.href = '/'; // Redirect to the homepage
+  }
+
   return (
     <div className="p-2 mt-5 max-w-[600px] xl:min-w-[300px]">
-      <Link href="/" className="block md:px-3 px-0">
-        <SidebarRow active={pathname === '/'} Icon={HomeIcon} title="Home" />
-      </Link>
+      {userId && (
+        <Link href="/" className="block md:px-3 px-0">
+          <SidebarRow active={pathname === '/'} Icon={HomeIcon} title="Home" />
+        </Link>
+      )}
       {userId && (
         <Link href={`/profile/${userId}/posts`} className="block md:px-3 px-0">
           <SidebarRow
@@ -58,20 +67,30 @@ function Sidebar() {
           />
         </Link>
       )}
-      <Link href="/saved" className="block md:px-3 px-0">
-        <SidebarRow active={pathname === '/saved'} Icon={BookmarkIcon} title="Saved" />
-      </Link>
+      {userId && (
+        <Link href="/saved" className="block md:px-3 px-0">
+          <SidebarRow active={pathname === '/saved'} Icon={BookmarkIcon} title="Saved" />
+        </Link>
+      )}
       <Link href="/guide" className="block md:px-3 px-0">
         <SidebarRow active={pathname === '/guide'} Icon={BookOpenIcon} title="Guidelines" />
       </Link>
       <Link href="/feedback" className="block md:px-3 px-0">
         <SidebarRow active={pathname === '/feedback'} Icon={PencilAltIcon} title="Project Feedback" />
       </Link>
-      <button onClick={logout} className="w-full -my-2 block md:px-3 px-0">
-        <span className="">
-          <SidebarRow Icon={LogoutIcon} title="Logout" />
-        </span>
-      </button>
+      {session?.user ? (
+        <button onClick={logout} className="w-full -my-2 block md:px-3 px-0">
+          <span className="">
+            <SidebarRow Icon={LogoutIcon} title="Logout" />
+          </span>
+        </button>
+      ) : (
+        <button onClick={login} className="w-full -my-2 block md:px-3 px-0">
+          <span className="">
+            <SidebarRow Icon={LogoutIcon} title="Login" />
+          </span>
+        </button>
+      )}
     </div>
   );
 }

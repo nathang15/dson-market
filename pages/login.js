@@ -204,7 +204,7 @@ function LoginPage() {
                       Sign In
                     </h1>
                   )}
-                  <div className='rounded-md overflow-hidden dark:text-lightBG text-darkBG'>
+                  <div className='rounded-md overflow-hidden text-darkBG'>
                     <div className="flex flex-col gap-4 p-4">
                       {message && <p className="text-green-500 flex justify-center">{message}</p>}
                       {errorMessage && <p className="text-red-500 flex justify-center">{errorMessage}</p>}
@@ -265,11 +265,11 @@ function LoginPage() {
                         </button>
                       )}
                       {isSignUp && (
-                        <button onClick={openOtpPopup} className="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-600">
+                        <button onClick={openOtpPopup} className="bg-red-400 text-white px-4 py-2 font-semibold rounded hover:bg-red-600">
                         Enter OTP
                         </button>
                       )}
-                      <span className='sm:text-sm flex justify-center mt-1'>
+                      <span className='sm:text-sm flex justify-center mt-1 dark:text-lightBG text-darkBG'>
                         — Remember to use Dickinson email! —
                       </span>
                       <a
@@ -310,7 +310,7 @@ function LoginPage() {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             {message && <p className="text-green-500 flex justify-center mb-2">{message}</p>}
-            <h2 className="text-xl font-semibold mb-4">Enter OTP</h2>
+            <h2 className="text-xl mb-4">Enter OTP</h2>
             <input
               type="text"
               value={otpInput}
