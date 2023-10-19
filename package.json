@@ -18,6 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^1.0.6",
+    "@kommunicate/kommunicate-chatbot-plugin": "^0.0.7",
     "@netlify/plugin-nextjs": "^4.37.4",
     "@supabase/auth-helpers-nextjs": "^0.5.6",
     "@supabase/auth-helpers-react": "^0.3.1",
