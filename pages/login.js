@@ -89,7 +89,7 @@ function LoginPage() {
       setMessage('');
       return;
     }
-    setMessage('Please wait 1-2 minutes to confirm your email!');
+    setMessage('Please wait 1-2 minutes to confirm your email! The email could be in your junk folder!');
     setShowOtpPopup(true);
     setErrorMessage('');
   }
