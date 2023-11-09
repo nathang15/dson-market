@@ -784,8 +784,8 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
                 }`}
                 onFocus={(e) => e.target.placeholder = ''}
                 onBlur={(e) => e.target.placeholder = sold ? 'This exchange is completed' : 'Leave a comment'}
-                placeholder={sold ? 'Exchange completed!' : 'Leave a comment'}
-                disabled={sold} // Disable input if isSold is true
+                placeholder={sold ? 'Exchange completed!' : (!myProfile.name ? 'Please set a name before you can comment' : 'Leave a comment')}
+                disabled={sold || !myProfile.name}
               />
               <label className='flex gap-1 -mt-14 hover:scale-110 cursor-pointer absolute right-0 top-0'>
                 <input type="file" className='hidden' multiple onChange={addPhotos} />
