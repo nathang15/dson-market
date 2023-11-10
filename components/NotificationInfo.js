@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable require-jsdoc */
 import React, {useContext, useEffect, useState} from 'react';
-import Avatar from './Avatar';
-import Link from 'next/link';
+// import Avatar from './Avatar';
+// import Link from 'next/link';
 import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
-import {UserContext} from '@/contexts/UserContext';
+// import {UserContext} from '@/contexts/UserContext';
 
 function NotificationInfo({id}) {
-  const {profile: myProfile} = useContext(UserContext);
+  // const {profile: myProfile} = useContext(UserContext);
   const supabase = useSupabaseClient();
   const [notifications, setNotifications] = useState([]);
   const [visibleNotifications, setVisibleNotifications] = useState([]);
