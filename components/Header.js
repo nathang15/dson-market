@@ -4,6 +4,9 @@ import {
   SunIcon,
   MoonIcon,
 } from '@heroicons/react/outline';
+import {
+  BellIcon,
+} from '@heroicons/react/outline';
 import Avatar from './Avatar';
 import Link from 'next/link';
 import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
@@ -12,6 +15,8 @@ import React, {useEffect, useState} from 'react';
 import PreLoader from './PreLoader';
 import {useRouter} from 'next/router';
 import useColorMode from '@/hooks/useColorMode';
+import NotificationInfo from './NotificationInfo';
+import ClickOutHandler from 'react-clickout-handler';
 
 /**
  * Header component that appears on all pages.
@@ -27,7 +32,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
   const [colorMode, setColorMode] = useColorMode();
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   /**
    * Handle the search form submission.
    * @param {Event} e - The form submission event.
@@ -38,6 +43,24 @@ function Header() {
       router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
     }
   };
+
+  /**
+   * Opens the dropdown menu for post options
+   * @param {Event} e - event
+   */
+  function openDropDown(e) {
+    e.stopPropagation();
+    setDropdownOpen(true);
+  }
+
+  /**
+     * Closes the dropdown menu when clicking outside
+     * @param {Event} e - event
+     */
+  function handleClickOutSideDropdown(e) {
+    e.stopPropagation();
+    setDropdownOpen(false);
+  }
 
   useEffect(() => {
     /**
@@ -106,6 +129,28 @@ function Header() {
             </div>
           )}
         </div>
+        <div className="px-1 mt-2 dark:text-lightBG text-gray-800">
+          {!dropdownOpen && (
+            <button className='' onClick={openDropDown}>
+              <BellIcon className="rounded-full cursor-pointer h-6 w-6 hover:scale-125 transition-all" />
+            </button>
+          )}
+          {dropdownOpen && (
+            <button className=''>
+              <BellIcon className="rounded-full cursor-pointer h-6 w-6 hover:scale-125 transition-all" />
+            </button>
+          )}
+          <ClickOutHandler onClickOut={handleClickOutSideDropdown}>
+            <div className='relative'>
+              {dropdownOpen && (
+                // <div className='absolute mt-2 -right-6 dark:bg-customBlack2 bg-white shadow-md p-3 rounded-sm border dark:border-black border-gray-100 w-80'>
+                <NotificationInfo/>
+                // </div>
+              )}
+            </div>
+          </ClickOutHandler>
+        </div>
+
         <button
           className="p-2 rounded-full bg-transparent hover:scale-125 transition-all"
           onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
