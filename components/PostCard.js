@@ -359,6 +359,16 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
         })
         .then((result) => {
           console.log(result);
+          const newCommentsNumber = comments.length + 1;
+          supabase.from('posts')
+              .update({comments_number: newCommentsNumber})
+              .eq('id', id) // Assuming 'id' is the primary key of your posts table
+              .then((updateResult) => {
+                console.log(updateResult);
+              })
+              .catch((error) => {
+                console.error('Error updating comments_number:', error.message);
+              });
           fetchComments();
           setCommentText('');
           setUploads([]);
@@ -485,6 +495,16 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
       console.error('Comment delete error:', postError);
     } else {
       console.log('Comment deleted successfully:', postData);
+      const newCommentsNumber = comments.length - 1;
+      supabase.from('posts')
+          .update({comments_number: newCommentsNumber})
+          .eq('id', id) // Assuming 'id' is the primary key of your posts table
+          .then((updateResult) => {
+            console.log(updateResult);
+          })
+          .catch((error) => {
+            console.error('Error updating comments_number:', error.message);
+          });
     }
   };
 
