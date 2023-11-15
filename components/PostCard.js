@@ -243,7 +243,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
     supabase.from('posts')
         .select('*, profiles(*)')
         .eq('parent', id)
-        .order('created_at', {ascending: false})
+        .order('created_at', {ascending: true})
         .then((result) => setComments(result.data));
   }
 
