@@ -29,7 +29,7 @@ export default function Home() {
         </div>
         <Feed/>
       </main>
-      <Chatbot/>
+      {/* <Chatbot/> */}
     </div>
   );
 }
