@@ -72,6 +72,7 @@ function Feed() {
     supabase
         .from('posts')
         .select('id, content, created_at, photos, sold, profiles(id, avatar, name)')
+        .is('sold', false)
         .is('parent', null)
         .order('created_at', {ascending: sortBy === 'asc'})
         .then((result) => {
