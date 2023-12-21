@@ -6,7 +6,6 @@ import Feed from '@/components/Feed';
 import {useSession} from '@supabase/auth-helpers-react';
 import React from 'react';
 import LoginPage from './login';
-import Chatbot from '@/components/Chatbot';
 export default function Home() {
   // const supabase = useSupabaseClient();
   const session = useSession();
@@ -29,7 +28,7 @@ export default function Home() {
         </div>
         <Feed/>
       </main>
-      <Chatbot/>
+      {/* <Chatbot/> */}
     </div>
   );
 }
