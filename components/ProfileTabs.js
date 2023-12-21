@@ -1,10 +1,13 @@
 // import {useRouter} from 'next/router';
 import React from 'react';
+import {UserContext} from '@/contexts/UserContext';
+import {useContext} from 'react';
 import Link from 'next/link';
 import {
   UserCircleIcon,
   AnnotationIcon,
   CurrencyDollarIcon,
+  ChatAltIcon,
 } from '@heroicons/react/outline';
 
 /**
@@ -17,6 +20,7 @@ import {
 function ProfileTabs({userId, active}) {
   const tabClasses = 'flex items-center';
   const activeTabClasses = 'flex items-center font-bold';
+  const {profile} = useContext(UserContext);
   // const router = useRouter();
 
   // const handleSalesLinkClick = () => {
@@ -41,6 +45,12 @@ function ProfileTabs({userId, active}) {
         <AnnotationIcon className='h-7 w-7 mr-1 bg-transparent'/>
         <span className='md:block'>Reviews</span>
       </Link>
+      {userId != profile?.id && (
+        <Link href={`/chat`} className={tabClasses}>
+          <ChatAltIcon className="h-7 w-7 mr-1 bg-transparent text-red-500" />
+          <span className="md:block">Chat</span>
+        </Link>
+      )}
     </div>
   );
 }
