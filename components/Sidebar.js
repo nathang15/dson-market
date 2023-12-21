@@ -4,6 +4,7 @@ import {
   BookmarkIcon,
   BookOpenIcon,
   PencilAltIcon,
+  ChatAltIcon,
 } from '@heroicons/react/outline';
 import {
   HomeIcon,
@@ -56,6 +57,11 @@ function Sidebar() {
       {userId && (
         <Link href="/" className="block md:px-3 px-0">
           <SidebarRow active={pathname === '/'} Icon={HomeIcon} title="Home" />
+        </Link>
+      )}
+      {userId && (
+        <Link href="/chat" className="block md:px-3 px-0">
+          <SidebarRow active={pathname === '/chat'} Icon={ChatAltIcon} title="Chat" />
         </Link>
       )}
       {userId && (
