@@ -83,7 +83,8 @@ function ChatPage() {
       const {data, error} = await supabase
           .from('messages')
           .select('id, content, author, receiver, created_at')
-          .in('author', [session.user.id, userId]) // Select messages from both users
+          .in('author', [session.user.id, userId])
+          .in('receiver', [session.user.id, userId])
           .order('created_at', {ascending: true});
 
       if (error) {
