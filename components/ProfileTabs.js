@@ -46,7 +46,7 @@ function ProfileTabs({userId, active}) {
         <span className='md:block'>Reviews</span>
       </Link>
       {userId != profile?.id && (
-        <Link href={`/chat`} className={tabClasses}>
+        <Link href={`/profile/${userId}/chat`} className={tabClasses}>
           <ChatAltIcon className="h-7 w-7 mr-1 bg-transparent text-red-500" />
           <span className="md:block">Chat</span>
         </Link>
