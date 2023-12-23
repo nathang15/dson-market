@@ -1,56 +1,11 @@
-// import React from 'react';
-// import {UserContext} from '@/contexts/UserContext';
-// import {useContext, useEffect, useState} from 'react';
-// import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
-// import {UserContextProvider} from '@/contexts/UserContext';
-// import Link from 'next/link';
-// import Avatar from '../Avatar';
-// const Message = ({messages}) => {
-//   const session = useSession();
-//   const supabase = useSupabaseClient();
-//   const {profile} = useContext(UserContext);
-//   const isUser = profile?.id;
-
-//   // {messages.map((message) => (
-//   //   <Message key={message.id} message={content} />
-//   // ))}
-//   return (
-//     <div>
-//       {messages.map((message) => (
-//         <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} items-center gap-2 mb-2 last:mb-0`} key={message.id}>
-//           <div
-//             className={`${isUser ? 'bg-red-400' : 'dark:bg-darkBG bg-lightBG'}
-//             ${isUser ? 'text-white' : 'dark:text-white text-darkBG'} p-2 mx-1 rounded-md max-w-xs`}
-//           >
-//             {message.text}
-//           </div>
-//           <div className='flex items-center'>
-//             {isUser && profile ? (
-//               <Link href={'/profile/' + profile.id}>
-//                 <span className='cursor-pointer'>
-//                   <Avatar url={profile.avatar} />
-//                 </span>
-//               </Link>
-//             ) : null}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default Message;
-
 import React from 'react';
 import {UserContext} from '@/contexts/UserContext';
 import {useContext, useEffect, useState} from 'react';
-import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
+import {useSupabaseClient} from '@supabase/auth-helpers-react';
 import {useRouter} from 'next/router';
-import {UserContextProvider} from '@/contexts/UserContext';
 import Link from 'next/link';
 import Avatar from '../Avatar';
 const Message = ({message}) => {
-  const session = useSession();
   const supabase = useSupabaseClient();
   const {profile} = useContext(UserContext);
   const isUser = message.sender === 'user';
