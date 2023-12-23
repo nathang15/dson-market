@@ -1,16 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import Layout from '@/components/Layout';
-import PostCard from '@/components/PostCard';
-import {useEffect, useState, useContext} from 'react';
+import {useEffect, useState} from 'react';
 import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
 import {UserContextProvider} from '../contexts/UserContext';
 import Message from '@/components/chatting/Message';
-import MessageInput from '@/components/chatting/MessageInput';
 import {useRouter} from 'next/router';
 import Card from '@/components/Card';
-import {UserContext} from '@/contexts/UserContext';
-import Link from 'next/link';
-import Avatar from '@/components/Avatar';
+import {PaperAirplaneIcon} from '@heroicons/react/solid';
 
 /**
  * Saved Post Page
@@ -20,7 +16,6 @@ function ChatPage() {
   const session = useSession();
   const supabase = useSupabaseClient();
   const router = useRouter();
-  const {profile} = useContext(UserContext);
   const userId = router.query.id;
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState([]);
@@ -101,7 +96,14 @@ function ChatPage() {
       setMessages(formattedMessages);
     } catch (error) {
       console.error(error);
-      // Handle error accordingly
+    }
+  };
+
+  const sendMessageWithKey = (e) => {
+    // Check if the Enter key is pressed
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent the default behavior (e.g., new line in the textarea)
+      sendMessage();
     }
   };
 
@@ -109,9 +111,13 @@ function ChatPage() {
   return (
     <Card>
       <div className="flex-1 mt-4">
-        {messages.map((message) => (
-          <Message key={message.id} message={message} />
-        ))}
+        {messages.length > 0 ? (
+            messages.map((message) => (
+              <Message key={message.id} message={message} />
+            ))
+          ) : (
+            <p className="text-lg dark:text-lightBG -mt-2">No chat history</p>
+          )}
       </div>
       <div className="mt-4">
         <div className="flex items-center">
@@ -119,14 +125,15 @@ function ChatPage() {
             type="text"
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
+            onKeyDown={sendMessageWithKey}
             placeholder="Type your message..."
             className="flex-1 p-2 border rounded-md mr-2 w-12 dark:text-white dark:bg-customBlack2 dark:border-darkBG"
           />
           <button
             onClick={sendMessage}
-            className="bg-red-500 text-white p-2 rounded-md"
+            className="p-2"
           >
-            Send
+            <PaperAirplaneIcon className="h-7 text-red-500 hover:scale-110 dark:text-lightBG transform rotate-90" />
           </button>
         </div>
       </div>
