@@ -31,7 +31,6 @@ const Message = ({message}) => {
 
     loadOtherUserProfile();
   }, [isUser, message.author]);
-  console.log(otherUserProfile);
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} items-center gap-2 mb-2 last:mb-0`}>
