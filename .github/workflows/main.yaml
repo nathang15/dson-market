@@ -1,0 +1,26 @@
+name: Deploy Migrations to Staging
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ sbp_7248bb410ff0de533cac23d270cc2f614ef455af }}
+      SUPABASE_DB_PASSWORD: ${{ DsonMarket2023# }}
+      SUPABASE_PROJECT_ID: ${{ dbprlgmyxnufwcuckaxl }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - run: supabase link --project-ref $SUPABASE_PROJECT_ID
+      - run: supabase db push

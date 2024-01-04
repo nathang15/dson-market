@@ -18,6 +18,7 @@ import {
   ExclamationIcon,
   PencilIcon,
   ShoppingBagIcon,
+  ChatAltIcon,
 } from '@heroicons/react/outline';
 import ReactTimeAgo from 'react-time-ago';
 import {UserContext} from '@/contexts/UserContext';
@@ -608,6 +609,17 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
             <div className='relative'>
               {dropdownOpen && (
                 <div className='absolute -right-6 bg-white p-3 rounded-sm border-2 dark:bg-customBlack dark:border-customBlack2 border-lightBorder w-52 z-10'>
+                  { /* Chat Button */ }
+                  <Link href={'/profile/' + authorProfile.id + '/chat'}>
+                    <button
+                      className="w-full -my-2"
+                    >
+                      <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 dark:text-lightBG'>
+                        <ChatAltIcon className="h-6 text-gray-800 group-hover:text-white dark:text-lightBG" />
+                      Chat
+                      </span>
+                    </button>
+                  </Link>
                   {/* Save button */}
                   <button onClick={toggleSave} className='w-full -my-2'>
                     <span className='group flex gap-2 py-2 my-2 hover:bg-red-500 hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 dark:text-lightBG'>
