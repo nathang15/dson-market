@@ -8,6 +8,7 @@ import {UserContextProvider} from '../contexts/UserContext';
 import {
   PencilAltIcon,
 } from '@heroicons/react/outline';
+import ChatPage from '@/pages/chat';
 
 /**
  * React component for displaying user profile content, including posts, about section, and reviews.
@@ -389,6 +390,12 @@ function ProfileContent({activeTab, userId}) {
               <p className="text-lg dark:text-lightBG">No reviews available.</p>
             )}
             </Card>
+          </div>
+
+        )}
+        {activeTab === 'chat' && (
+          <div>
+            <ChatPage/>
           </div>
 
         )}
