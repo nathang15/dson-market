@@ -531,6 +531,22 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
           break;
         }
 
+        // Check the file size (in bytes), adjust the limit as needed
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB as an example, adjust as needed
+        if (file.size > maxSizeInBytes) {
+          alert('File size exceeds the limit (5 MB). Please upload a smaller file.');
+          continue; // Skip the current file
+        }
+
+        const validExtensions = ['png', 'jpg', 'jpeg'];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!validExtensions.includes(fileExtension)) {
+          // Display an error message for invalid file types
+          alert('Invalid file type. Please upload only png, jpg, or jpeg files.');
+          continue; // Skip the current file
+        }
+
         const newName = Date.now() + file.name;
         const result = await supabase
             .storage
