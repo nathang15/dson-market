@@ -123,7 +123,7 @@ function PostFormCard({onPost}) {
 
     if (files.length > 0) {
       if (files.length > 8) {
-      // Display an error message when the limit is exceeded
+        // Display an error message when the limit is exceeded
         alert('You can only upload a maximum of 8 photos at a time.');
         return;
       }
@@ -132,16 +132,23 @@ function PostFormCard({onPost}) {
 
       for (const file of files) {
         if (uploads.length >= 8) {
-        // If the limit is reached during the loop, break out of it
+          // If the limit is reached during the loop, break out of it
           alert('You can only upload a maximum of 8 photos at a time.');
           break;
+        }
+
+        // Check the file size (in bytes), adjust the limit as needed
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB as an example, adjust as needed
+        if (file.size > maxSizeInBytes) {
+          alert('File size exceeds the limit (5 MB). Please upload a smaller file.');
+          continue; // Skip the current file
         }
 
         const validExtensions = ['png', 'jpg', 'jpeg'];
         const fileExtension = file.name.split('.').pop().toLowerCase();
 
         if (!validExtensions.includes(fileExtension)) {
-        // Display an error message for invalid file types
+          // Display an error message for invalid file types
           alert('Invalid file type. Please upload only png, jpg, or jpeg files.');
           continue; // Skip the current file
         }
