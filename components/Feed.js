@@ -86,7 +86,7 @@ function Feed() {
   };
 
   return (
-    <div className="flex-grow h-screen pb-44 md:pt-6 pt-0 md:mr-4 mr-2 md:ml-0 ml-2 xl:mr-40 overflow-auto scrollbar-hide">
+    <div className="flex-grow h-screen pb-44 md:pt-6 pt-0 overflow-auto">
       <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
         <UserContext.Provider value={{profile}}>
           <div>
