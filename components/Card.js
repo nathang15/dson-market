@@ -7,13 +7,17 @@ import React from 'react';
  * @param {Object} props - The properties for configuring the card.
  * @param {ReactNode} props.children - The content to be displayed inside the card.
  * @param {boolean} [props.noPadding] - If true, removes padding and uses rounded-xl styling.
+ * @param {boolean} [props.isUserCard] - If true, set the width to 30% for user cards.
  * @return {ReactElement} Returns a React component that displays a card with the specified content.
  */
-function Card({children, noPadding}) {
+function Card({children, noPadding, isUserCard}) {
   let classes = 'bg-white dark:bg-customBlack dark:border-customBlack2 border-2 border-lightBorder rounded-md p-4 mb-5';
   if (noPadding) {
     classes = 'bg-white dark:bg-customBlack dark:border-customBlack2 border-2 border-lightBorder rounded-xl mb-5';
   }
+
+  const cardStyle = isUserCard ? {width: '35%'} : {width: '100%'};
+
   return (
     <div
       className="card-wrapper"
@@ -25,7 +29,7 @@ function Card({children, noPadding}) {
         justifyContent: 'center',
       }}
     >
-      <div className={classes} style={{width: '100%'}}>
+      <div className={classes} style={cardStyle}>
         {children}
       </div>
     </div>
