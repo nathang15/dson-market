@@ -120,34 +120,51 @@ function PostFormCard({onPost}) {
  */
   async function addPhotos(ev) {
     const files = ev.target.files;
+
     if (files.length > 0) {
       if (files.length > 8) {
-        // Display an error message when the limit is exceeded
+      // Display an error message when the limit is exceeded
         alert('You can only upload a maximum of 8 photos at a time.');
         return;
       }
+
       setIsUploading(true);
+
       for (const file of files) {
         if (uploads.length >= 8) {
-          // If the limit is reached during the loop, break out of it
+        // If the limit is reached during the loop, break out of it
           alert('You can only upload a maximum of 8 photos at a time.');
           break;
         }
+
+        const validExtensions = ['png', 'jpg', 'jpeg'];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!validExtensions.includes(fileExtension)) {
+        // Display an error message for invalid file types
+          alert('Invalid file type. Please upload only png, jpg, or jpeg files.');
+          continue; // Skip the current file
+        }
+
         const newName = Date.now() + file.name;
+
         const result = await supabase
             .storage
             .from('photos')
             .upload(newName, file);
+
         if (result.data) {
           const url = process.env.NEXT_PUBLIC_SUPABASE_URL + '/storage/v1/object/public/photos/' + result.data.path;
-          setUploads((prevUploads) =>[...prevUploads, url]);
+          setUploads((prevUploads) => [...prevUploads, url]);
         } else {
           console.log(result);
         }
       }
+
       setIsUploading(false);
     }
   }
+
 
   const handleTextareaChange = (e) => {
     setContent(e.target.value);
