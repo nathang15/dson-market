@@ -32,4 +32,11 @@ module.exports = {
     'max-len': 0,
     'react/prop-types': 'off',
   },
+  'prettier/prettier': [
+    'error',
+    {
+      'singleQuote': true,
+      'parser': 'typescript',
+    },
+  ],
 };

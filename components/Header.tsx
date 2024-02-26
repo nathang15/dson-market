@@ -186,7 +186,7 @@ function Header() {
 }
 
 export default Header;
-function setErrorMessage(message: string) {
+function setErrorMessage(_message: string) {
   throw new Error('Function not implemented.');
 }
 
