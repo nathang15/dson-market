@@ -11,6 +11,7 @@ import {
   MoonIcon,
 } from '@heroicons/react/outline';
 import useColorMode from '@/hooks/useColorMode';
+import { darkMode } from '@/tailwind.config';
 
 /**
  * Login Page
@@ -32,7 +33,8 @@ function LoginPage() {
   const [otpError, setOtpError] = useState('');
   // const [setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const logo = '/logo.png';
+  const logo = '/dsonmarket_rectangle_logo.png';
+  const logoDark = '/dsonmarket_rectangle_logo_inverse.png';
   const [colorMode, setColorMode] = useColorMode();
   /**
    * Logs in the user using Google OAuth.
@@ -154,24 +156,21 @@ function LoginPage() {
         <title>Dson Market — Secure</title>
       </Head>
       <header className="sticky top-0 z-50 bg-white border-2 border-lightBorder dark:border-customBlack2 dark:bg-customBlack flex items-center p-2 lg:px-5 px-4 shadow-md">
-        <div className="px-4 flex items-center">
-          <Image src={logo} height={40} width={40} objectFit="fixed" />
-          <h1 className="text-xl font-bold ml-2 dark:text-lightBG text-darkBG">DSON MARKET</h1>
+        <div className="flex items-center">
+          {colorMode == 'light' ? (
+            <Image src={logo} height={75} width={1.80584551148*75} objectFit="fixed" />
+          ) : (
+            <Image src={logoDark} height={75} width={1.80584551148*75} objectFit="fixed" />
+          )}
         </div>
-        {/* <button className="flex gap-2  items-center ml-auto bg-red-400 hover:bg-red-500 text-white font-semibold py-2 px-4 border border-red-500 rounded">
-            Request Demo
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-          </svg>
-        </button> */}
         <button
           className="flex gap-2 items-center ml-auto p-2 rounded-full bg-transparent hover:scale-125 transition-all"
           onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
         >
           {colorMode === 'dark' ? (
-          <SunIcon className="h-6 w-6 dark:text-white text-darkBG" />
+          <SunIcon className="h-7 w-7 dark:text-white text-darkBG" />
         ) : (
-          <MoonIcon className="h-6 w-6" />
+          <MoonIcon className="h-7 w-7" />
         )}
         </button>
       </header>
@@ -179,16 +178,16 @@ function LoginPage() {
         <div className="flex items-center justify-center h-full">
           <div className="flex justify-center gap-20 w-full">
             <div className="flex flex-col items-center">
-              <div className="border-3 border-customGray rounded-full h-20 w-20 flex items-center justify-center">
+              <div className="border-3 dark:border-lightBG border-darkBG rounded-full h-20 w-20 flex items-center justify-center">
                 {isLoggingIn ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#A2A2A2" className="w-10 h-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={colorMode === 'dark' ? '#F4F4F4' : '#17181C'}className="w-10 h-10">
                     <path d="M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 01-1.5 0V6.75a3.75 3.75 0 10-7.5 0v3a3 3 0 013 3v6.75a3 3 0 01-3 3H3.75a3 3 0 01-3-3v-6.75a3 3 0 013-3h9v-3c0-2.9 2.35-5.25 5.25-5.25z" />
                   </svg>
                 ) : (
                   <LockClosedIcon
                     className='w-10 h-10'
                     style={{
-                      color: '#A2A2A2',
+                      color: colorMode === 'dark' ? '#F4F4F4' : '#17181C',
                     }}
                   />
                 )}
