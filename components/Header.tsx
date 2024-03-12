@@ -22,8 +22,8 @@ import NotificationInfo from './NotificationInfo';
  * @return {JSX.Element} The rendered header.
  */
 function Header() {
-  const logo = '/logo.png';
-
+  const logo = '/dsonmarket_rectangle_logo.png';
+  const logoDark = '/dsonmarket_rectangle_logo_inverse.png';
   const supabase = useSupabaseClient();
   const session = useSession();
   // Initialize profile state
@@ -106,16 +106,15 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-2 border-lightBorder dark:border-customBlack2 dark:bg-customBlack flex items-center p-2 lg:px-5 px-4">
-      <div className="px-4 flex items-center">
+      <div className="flex items-center">
         <Link href="/">
-          <Image
-            src={logo}
-            width="40"
-            height="40"
-            layout="fixed"
-          />
+          {colorMode == 'light' ? (
+            <Image src={logo} height={75} width={1.80584551148*75} layout="fixed" />
+          ) : (
+            <Image src={logoDark} height={75} width={1.80584551148*75} layout="fixed" />
+          )}
         </Link>
-        <div className="flex md:inline-flex ml-2 items-center rounded-full bg-gray-100 p-2 dark:bg-customBlack2">
+        <div className="flex md:inline-flex items-center rounded-full bg-gray-100 p-2 dark:bg-customBlack2">
           <SearchIcon className="h-6 text-gray-600 dark:text-gray-200" />
           <form onSubmit={handleSearch}>
             <input
@@ -151,12 +150,12 @@ function Header() {
         <div className="px-1 mt-2 dark:text-lightBG text-gray-800">
           {!dropdownOpen && (
             <button className='' onClick={openDropDown}>
-              <BellIcon className="rounded-full cursor-pointer h-6 w-6 hover:scale-125 transition-all" />
+              <BellIcon className="rounded-full cursor-pointer h-7 w-7 hover:scale-125 transition-all" />
             </button>
           )}
           {dropdownOpen && (
             <button className=''>
-              <BellIcon className="rounded-full cursor-pointer h-6 w-6 hover:scale-125 transition-all" />
+              <BellIcon className="rounded-full cursor-pointer h-7 w-7 hover:scale-125 transition-all" />
             </button>
           )}
           <div ref={dropdownRef}>
@@ -175,9 +174,9 @@ function Header() {
           onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
         >
           {colorMode === 'dark' ? (
-          <SunIcon className="h-6 w-6 text-white" />
+          <SunIcon className="h-7 w-7 text-white" />
         ) : (
-          <MoonIcon className="h-6 w-6" />
+          <MoonIcon className="h-7 w-7" />
         )}
         </button>
       </div>
