@@ -61,7 +61,7 @@ function LoginPage() {
       password,
     });
     if (error) {
-      setErrorMessage('Invalid email or password');
+      setErrorMessage('There is a problem logging you in. Please contact nguyenat@dickinson.edu for more detail.');
       setIsLoggingIn(false); // Login process completed
       return;
     }
@@ -87,7 +87,7 @@ function LoginPage() {
       password,
     });
     if (error) {
-      setErrorMessage('You have already created an account!');
+      setErrorMessage('There is a problem signing you up. Please contact nguyenat@dickinson.edu for more detail.');
       setMessage('');
       return;
     }
