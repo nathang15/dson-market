@@ -32,6 +32,11 @@ function Header() {
   const router = useRouter();
   const [colorMode, setColorMode] = useColorMode();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   /**
    * Handle the search form submission.
    * @param {Event} e - The form submission event.
@@ -173,11 +178,13 @@ function Header() {
           className="p-2 rounded-full bg-transparent hover:scale-125 transition-all"
           onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
         >
-          {colorMode === 'dark' ? (
-          <SunIcon className="h-7 w-7 text-white" />
-        ) : (
-          <MoonIcon className="h-7 w-7" />
-        )}
+          {isMounted && (
+            colorMode === 'dark' ? (
+              <SunIcon className="h-7 w-7 text-white" />
+            ) : (
+              <MoonIcon className="h-7 w-7" />
+            )
+          )}
         </button>
       </div>
     </header>
