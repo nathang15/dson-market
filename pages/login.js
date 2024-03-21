@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
@@ -36,6 +36,11 @@ function LoginPage() {
   const logo = '/dsonmarket_rectangle_logo.png';
   const logoDark = '/dsonmarket_rectangle_logo_inverse.png';
   const [colorMode, setColorMode] = useColorMode();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   /**
    * Logs in the user using Google OAuth.
    * @async
@@ -167,11 +172,13 @@ function LoginPage() {
           className="flex gap-2 items-center ml-auto p-2 rounded-full bg-transparent hover:scale-125 transition-all"
           onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
         >
-          {colorMode === 'dark' ? (
-          <SunIcon className="h-7 w-7 dark:text-white text-darkBG" />
-        ) : (
-          <MoonIcon className="h-7 w-7" />
-        )}
+          {isMounted && (
+            colorMode === 'dark' ? (
+              <SunIcon className="h-7 w-7 dark:text-white text-darkBG" />
+            ) : (
+              <MoonIcon className="h-7 w-7" />
+            )
+          )}
         </button>
       </header>
       <main className="flex-grow dark:bg-darkBG">
@@ -180,14 +187,14 @@ function LoginPage() {
             <div className="flex flex-col items-center">
               <div className="border-3 dark:border-lightBG border-darkBG rounded-full h-20 w-20 flex items-center justify-center">
                 {isLoggingIn ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={colorMode === 'dark' ? '#F4F4F4' : '#17181C'}className="w-10 h-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={isMounted && colorMode === 'dark' ? '#F4F4F4' : '#17181C'}className="w-10 h-10">
                     <path d="M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 01-1.5 0V6.75a3.75 3.75 0 10-7.5 0v3a3 3 0 013 3v6.75a3 3 0 01-3 3H3.75a3 3 0 01-3-3v-6.75a3 3 0 013-3h9v-3c0-2.9 2.35-5.25 5.25-5.25z" />
                   </svg>
                 ) : (
                   <LockClosedIcon
                     className='w-10 h-10'
                     style={{
-                      color: colorMode === 'dark' ? '#F4F4F4' : '#17181C',
+                      color: isMounted && colorMode === 'dark' ? '#F4F4F4' : '#17181C',
                     }}
                   />
                 )}
