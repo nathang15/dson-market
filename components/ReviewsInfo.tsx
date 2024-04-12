@@ -24,7 +24,7 @@ function ReviewsInfo({reviews}) {
             <div>
               <Link href={'/profile/' + review.author.id}>
                 <span className='cursor-pointer'>
-                  <Avatar url={review.author.avatar}/>
+                  <Avatar url={review.author.avatar} size={''} editable={false}/>
                 </span>
               </Link>
             </div>

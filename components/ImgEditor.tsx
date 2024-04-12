@@ -2,12 +2,25 @@ import React, {Component} from 'react';
 import ImageCrop from './ImageCrop';
 import {uploadUserProfileImage} from '../Helpers/user';
 // import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
+interface ImgEditorState {
+  userProfilePic: string;
+  editor: any;
+  scaleValue: number;
+  selectedImage: File | null;
+}
+
+import { SupabaseClient, Session } from '@supabase/supabase-js';
+
+interface ImgEditorProps {
+  supabase: SupabaseClient;
+  session: Session;
+}
 
 /**
  * Component for editing and uploading user profile images.
  * The rendered Image Editor.
  */
-class ImgEditor extends Component {
+class ImgEditor extends Component<ImgEditorProps, ImgEditorState> {
   /**
    * Constructor for ImgEditor component.
    * @param {object} props - The props passed to the component.
@@ -88,7 +101,7 @@ class ImgEditor extends Component {
     const {type} = file;
     if (!(type.endsWith('jpeg') || type.endsWith('png') || type.endsWith('jpg') || type.endsWith('gif'))) {
     } else {
-      this.setState({openCropper: true, selectedImage: fileChangeEvent.target.files[0], fileUploadErrors: []});
+      this.setState({selectedImage: fileChangeEvent.target.files[0]});
     }
   };
 
