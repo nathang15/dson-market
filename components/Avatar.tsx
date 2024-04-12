@@ -13,10 +13,9 @@ import ImgEditor from './ImgEditor';
  * @param {string} props.size - The size of the avatar ('lg', 'md', 'sm').
  * @param {string} props.url - The URL of the avatar image.
  * @param {boolean} props.editable - Whether the avatar is editable.
- * @param {Function} props.onChange - Function to handle avatar change.
  * @return {JSX.Element} The Avatar component.
  */
-function Avatar({size, url, editable, onChange}) {
+function Avatar({size, url, editable}: { size: string; url: string; editable: boolean; }): JSX.Element {
   const supabase = useSupabaseClient();
   const session = useSession();
   // const [isUploading, setIsUploading] = useState(false);

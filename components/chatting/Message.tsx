@@ -38,7 +38,7 @@ const Message = ({message}) => {
         <div className='flex items-center'>
           <Link href={'/profile/' + otherUserProfile?.id}>
             <span className='cursor-pointer'>
-              <Avatar url={otherUserProfile?.avatar} />
+              <Avatar url={otherUserProfile?.avatar} size={undefined} editable={undefined} />
             </span>
           </Link>
         </div>
@@ -53,7 +53,7 @@ const Message = ({message}) => {
         <div className='flex items-center'>
           <Link href={'/profile/' + profile.id}>
             <span className='cursor-pointer'>
-              <Avatar url={profile.avatar} />
+              <Avatar url={profile.avatar} size={undefined} editable={undefined} />
             </span>
           </Link>
         </div>

@@ -20,7 +20,7 @@ import PostConfirmationPop from './PostConfirmationPop';
 function PostFormCard({onPost}) {
   const supabase = useSupabaseClient();
   const [uploads, setUploads] = useState([]);
-  const [isUploading, setIsUploading] = useState();
+  const [isUploading, setIsUploading] = useState(false);
   const session = useSession();
   const [content, setContent] = useState('');
   const {profile} = useContext(UserContext);
@@ -42,7 +42,7 @@ function PostFormCard({onPost}) {
       return;
     }
 
-    if (hasWTS | hasWTSlong && uploads.length === 0) {
+    if (hasWTS || hasWTSlong && uploads.length === 0) {
       setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
       return;
     }
@@ -227,12 +227,12 @@ function PostFormCard({onPost}) {
   }
 
   return (
-    <Card>
+    <Card noPadding={undefined} isUserCard={undefined}>
       <div className='flex gap-2 max-w-2xl'>
         <div className='flex items-center'>
           <Link href={'/profile/' + profile.id}>
             <span className='cursor-pointer'>
-              <Avatar url={profile.avatar} />
+              <Avatar url={profile.avatar} size={''} editable={false} />
             </span>
           </Link>
         </div>
@@ -243,16 +243,17 @@ function PostFormCard({onPost}) {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    const {selectionStart, selectionEnd} = e.target;
+                    const textarea = e.target as HTMLTextAreaElement;
+                    const { selectionStart, selectionEnd } = textarea;
                     const newContent = `${content.substring(0, selectionStart)}\n${content.substring(selectionStart, selectionEnd)}${content.substring(selectionEnd)}`;
                     const newCursorPosition = selectionStart + 1;
                     setContent(newContent);
-                    adjustTextareaHeight(e.target);
+                    adjustTextareaHeight(textarea);
                     setTimeout(() => {
-                      e.target.setSelectionRange(newCursorPosition, newCursorPosition);
+                      textarea.setSelectionRange(newCursorPosition, newCursorPosition);
                     }, 0);
                   }
-                }}
+                }}                
                 className="grow p-3 rounded-lg bg-lightBG placeholder-gray-600 dark:bg-customBlack2 dark:placeholder-gray-200 dark:text-white md:text-md text-sm"
                 placeholder = {`What do you want to sell or buy, ${profile.name}?`}
                 onFocus={(e) => e.target.placeholder = ''}
