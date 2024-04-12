@@ -223,7 +223,7 @@ function ProfileContent({activeTab, userId}) {
    * Resets the height of the review textarea.
    */
   const resetTextareaHeight = () => {
-    const textarea = document.querySelector('.review-textarea');
+    const textarea = document.querySelector('.review-textarea') as HTMLTextAreaElement;
     textarea.style.height = 'auto';
   };
 
@@ -275,7 +275,7 @@ function ProfileContent({activeTab, userId}) {
         )}
         {activeTab === 'about' && (
           <div>
-            <Card>
+            <Card noPadding={undefined} isUserCard={undefined}>
               <div className='flex justify-between items-center'>
                 <h2 className='text-3xl mb-2 dark:text-lightBG'>About me</h2>
                 <div>
@@ -324,10 +324,11 @@ function ProfileContent({activeTab, userId}) {
                       placeholder='Tell us about yourself'
                       onChange={(ev) => setAbout(ev.target.value)}
                       onInput={(ev) => {
-                        ev.target.style.height = 'auto'; // Reset the height to auto
-                        ev.target.style.height = ev.target.scrollHeight + 'px'; // Set the height to match the scrollHeight
-                        const rowCount = calculateRowCount(ev.target.value);
-                        ev.target.rows = rowCount;
+                        const target = ev.target as HTMLTextAreaElement; // Typecast the event target to HTMLTextAreaElement
+                        target.style.height = 'auto'; // Reset the height to auto
+                        target.style.height = target.scrollHeight + 'px'; // Set the height to match the scrollHeight
+                        const rowCount = calculateRowCount(target.value);
+                        target.rows = rowCount;
                       }}
                       value={about}
                       maxLength={200}
@@ -350,7 +351,7 @@ function ProfileContent({activeTab, userId}) {
         {activeTab === 'reviews' && (
           <div>
             {/* Write Review section */}
-            <Card>
+            <Card noPadding={undefined} isUserCard={undefined}>
               <h2 className="text-3xl mb-2 dark:text-lightBG">Write a Review</h2>
               <textarea
                 className="text-lg py-2 px-3 rounded-md dark:bg-customBlack2 border-2 dark:text-lightBG dark:border-customBlack dark:placeholder-lightBG w-full review-textarea"
@@ -359,8 +360,9 @@ function ProfileContent({activeTab, userId}) {
                 value={reviewText}
                 onChange={handleInputChange}
                 onInput={(e) => {
-                  e.target.style.height = 'auto';
-                  e.target.style.height = e.target.scrollHeight + 'px';
+                  const target = e.target as HTMLTextAreaElement; // Typecast the event target to HTMLTextAreaElement
+                  target.style.height = 'auto';
+                  target.style.height = target.scrollHeight + 'px';
                 }}
                 onKeyDown={handleKeyDown} // Add keydown event handler
               />
@@ -380,11 +382,11 @@ function ProfileContent({activeTab, userId}) {
                 </button>
               )}
             </Card>
-            <Card>
+            <Card noPadding={undefined} isUserCard={undefined}>
               <h2 className="text-3xl mb-2 dark:text-lightBG">Reviews</h2>
               {reviews.length > 0 ? (
               <pre className='whitespace-pre-wrap font-sans dark:text-lightBG'>
-                <ReviewsInfo className="shadow-md" reviews={reviews} />
+                <ReviewsInfo reviews={reviews} />
               </pre>
             ) : (
               <p className="text-lg dark:text-lightBG">No reviews available.</p>

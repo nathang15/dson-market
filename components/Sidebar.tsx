@@ -56,7 +56,7 @@ function Sidebar() {
     <div className="p-2 mt-5 max-w-[600px] xl:min-w-[300px]">
       {userId && (
         <Link href="/" className="block md:px-3 px-0">
-          <SidebarRow active={pathname === '/'} Icon={HomeIcon} title="Home" />
+          <SidebarRow active={pathname === '/'} Icon={HomeIcon} title="Home" src={undefined} />
         </Link>
       )}
       {userId && (
@@ -64,7 +64,8 @@ function Sidebar() {
           <SidebarRow
             active={pathname === `/profile/${userId}/chat`}
             Icon={ChatAltIcon}
-            title="Chat"
+            title="Chat" 
+            src={undefined}          
           />
         </Link>
       )}
@@ -73,31 +74,32 @@ function Sidebar() {
           <SidebarRow
             active={pathname === `/profile/${userId}/posts`}
             Icon={CurrencyDollarIcon}
-            title="Sales"
+            title="Sales" 
+            src={undefined}          
           />
         </Link>
       )}
       {userId && (
         <Link href="/saved" className="block md:px-3 px-0">
-          <SidebarRow active={pathname === '/saved'} Icon={BookmarkIcon} title="Saved" />
+          <SidebarRow active={pathname === '/saved'} Icon={BookmarkIcon} title="Saved" src={undefined} />
         </Link>
       )}
       <Link href="/guide" className="block md:px-3 px-0">
-        <SidebarRow active={pathname === '/guide'} Icon={BookOpenIcon} title="Guidelines" />
+        <SidebarRow active={pathname === '/guide'} Icon={BookOpenIcon} title="Guidelines" src={undefined} />
       </Link>
       <Link href="/feedback" className="block md:px-3 px-0">
-        <SidebarRow active={pathname === '/feedback'} Icon={PencilAltIcon} title="Project Feedback" />
+        <SidebarRow active={pathname === '/feedback'} Icon={PencilAltIcon} title="Project Feedback" src={undefined} />
       </Link>
       {session?.user ? (
         <button onClick={logout} className="w-full -my-2 block md:px-3 px-0">
           <span className="">
-            <SidebarRow Icon={LogoutIcon} title="Logout" />
+            <SidebarRow Icon={LogoutIcon} title="Logout" src={undefined} active={undefined} />
           </span>
         </button>
       ) : (
         <button onClick={login} className="w-full -my-2 block md:px-3 px-0">
           <span className="">
-            <SidebarRow Icon={LogoutIcon} title="Login" />
+            <SidebarRow Icon={LogoutIcon} title="Login" src={undefined} active={undefined} />
           </span>
         </button>
       )}
