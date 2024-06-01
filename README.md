@@ -50,6 +50,8 @@ Full installation details for these tools are provided by the projects themselve
     - Test your install using the command: `node -v` and `npm -v`
 - [Install Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
     - Test your install using the command: `yarn --version`
+- [Install Docker](https://docs.docker.com/get-docker)
+    - Test your install using the command: `docker --version` 
 - Assuming you are using VSCode, it is very beneficial to add ESLint extension as it greatly helps with code linting.
 ### Setting up development environment
 DsonMarket uses the fork model for development. (There are many descriptions of this process on the web but GitHub ones include a [general one](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) and one with [more operational details.](https://docs.github.com/en/get-started/quickstart/fork-a-repo)) 
