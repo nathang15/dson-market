@@ -50,6 +50,8 @@ Full installation details for these tools are provided by the projects themselve
     - Test your install using the command: `node -v` and `npm -v`
 - [Install Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
     - Test your install using the command: `yarn --version`
+- [Install Docker](https://docs.docker.com/get-docker)
+    - Test your install using the command: `docker --version` 
 - Assuming you are using VSCode, it is very beneficial to add ESLint extension as it greatly helps with code linting.
 ### Setting up development environment
 DsonMarket uses the fork model for development. (There are many descriptions of this process on the web but GitHub ones include a [general one](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) and one with [more operational details.](https://docs.github.com/en/get-started/quickstart/fork-a-repo)) 
@@ -57,7 +59,7 @@ DsonMarket uses the fork model for development. (There are many descriptions of 
 - This means you need to go to the main [DsonMarket GitHub](https://github.com/nathang15/dson-market) page (after login to GitHub),
 - Fork the project onto your own GitHub account.
 - Clone the forked copy onto you own development machine to work on the code base. You can place the clone anywhere you want on your machine.
-  - Note the clone will place all the files inside a new directory named dson-market unless you put a "." at the end of the git clone command.
+- Note the clone will place all the files inside a new directory named dson-market unless you put a "." at the end of the git clone command.
 - This model has the advantage that you can commit and push to your account without needing write permission on the main project repository.
 
 #### Run DsonMarket
@@ -65,17 +67,22 @@ DsonMarket uses the fork model for development. (There are many descriptions of 
 - To do this (use the terminal inside VSCode, assuming you are using VSCode): 
   - If you are not already in DsonMarket folder, navigate to it by using the command `cd dson-market`
   - To check if you are in the correct folder, run the command `ls` and it should displays a bunch of files like package.json, .github, .next, etc.
-  - Next, run the command `yarn run dev` to start the server.
-  - Enter the address: localhost:3000 and load the page. "localhost" indicates the page is being served up from your machine and "3000" is the default port that DsonMarket uses to accept web connections.
-
+  - Next, make sure docker is running and run the chain of commands:
+      - `git switch dev-env` to switch to the development environment branch.
+      - `npx supabase start` to start supabase local environment.
+      - `yarn run dev` to start the server
+  - Enter the address: 127.0.0.1:3000 and load the page. "127.0.0.1" indicates the page is being served up from your machine and "3000" is the default port that DsonMarket uses to accept web connections.
+ 
+#### Stop DsonMarket
+- If you want to stop running dsonmarket, do the following:
+    - Close the server by perform Ctrl + C on Windows or Cmd + C on Mac
+    - `npx supabase stop` to stop the supabase local instance
+    - Stop Docker
+      
 ### Steps for creating a pull request (PR) to integrate your code into DsonMarket.
 - While developing your code, we suggest you do the following:
   - **Create a branch of development branch** (the main branch is the default when you clone the project) and give it a name that indicates the work you intend to do.
-  - Make sure you run DsonMarket in a web browser and it works as expected. Please check any feature that might have been impacted by your work and do a quick general check of the system so you know it works.
-- :warning: **WARNING**:
-  - **All actions performed (e.g create posts, post comments, likes someone's posts, etc.)** during local development will also be live in production. Be careful not to perform those actions unless it is absulutely necessary.
-  - We are trying our best to figure out how to set up a proper local development environment.
-
+  - Make sure you run DsonMarket in a web browser and it works as expected. Please check any feature that might have been impacted by your work and do a quick general check of the system so you know it works
 - When your fork has code that is ready to add to the main code base, create a pull request from your branch into development on the main DsonMarket GitHub repository ([GitHub documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)). The pull request template should include the following: 
   - An area at the top to describe this PR. It states: "Please include a summary of the change and which issue is touched on. Please also include relevant motivation and context." This is also the area to add recognition of others that worked on code. Use the @<GitHub name> where you put in the person's actual GitHub name (user id) without the angle brackets and GitHub will automatically link to their GitHub account.
   - Note any issues this PR addresses. Check to see if you are addressing any open issues. If so, please note in the pull request description. If your pull request completely fixes/addresses an open issue then put the words "Fixes #XXX", where XXX is the issue number. If it only partly addresses an issue then use "Partly Addresses #XXX". If it fixes an open issue then everyone will see the a note in the pull request (after opened) indicating it will close this issue when merged and there is also a related note in the issue.
