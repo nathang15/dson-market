@@ -193,6 +193,6 @@ function Header() {
 
 export default Header;
 function setErrorMessage(_message: string) {
-  throw new Error('Function not implemented.');
+  throw new Error('Session unable to establish.');
 }
 
