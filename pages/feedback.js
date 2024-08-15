@@ -47,12 +47,12 @@ function Feedback() {
 
 
     emailjs
-        .sendForm('service_m8fv33t', 'template_6o5mokq', form.current, 'xmX7czD8mgYu0y4bq')
+        .sendForm('service_563wv5n', 'template_6o5mokq', form.current, 'xmX7czD8mgYu0y4bq')
         .then((result) => {
           form.current.from_name.value = '';
           emailInput.value = '';
           form.current.message.value = '';
-
+s
           setEmailValid(true); // Reset email validation state
           setErrorMessage(''); // Clear any previous error message
           setText('');
