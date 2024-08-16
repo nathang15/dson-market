@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/legacy/image';
 import {useSupabaseClient} from '@supabase/auth-helpers-react';
 import {LockClosedIcon} from '@heroicons/react/solid';
+import resetPassword from './resetPassword';
 import {createClient} from '@supabase/supabase-js';
 import {
   SunIcon,
@@ -37,19 +38,12 @@ function LoginPage() {
   const logoDark = '/dsonmarket_rectangle_logo_inverse.png';
   const [colorMode, setColorMode] = useColorMode();
   const [isMounted, setIsMounted] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
+  const [successResetPassword, setSuccessResetPassword] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  /**
-   * Logs in the user using Google OAuth.
-   * @async
-  */
-  // async function loginWithGoogle() {
-  //   await supabase.auth.signInWithOAuth({
-  //     provider: 'google',
-  //   });
-  // }
 
   /**
    * Signs in the user with an email and password.
@@ -141,6 +135,7 @@ function LoginPage() {
   function closeOtpPopup() {
     setShowOtpPopup(false);
     setMessage('');
+    setErrorMessage('');
     setOtpInput('');
     setOtpError('');
   }
@@ -153,6 +148,23 @@ function LoginPage() {
     setMessage('');
     setOtpInput('');
     setOtpError('');
+  }
+
+  async function sendResetPassword() {
+    if (!email.endsWith('@dickinson.edu')) {
+      setErrorMessage('Must use dickinson email');
+      return;
+    }
+    const {data, error} = await supabase.auth.resetPasswordForEmail(
+      email,
+    );
+    if (error) {
+      setErrorMessage('There is a problem verifying your email. Please contact nguyenat@dickinson.edu for more detail.');
+      setMessage('');
+      return;
+    }
+    setMessage('Please wait 5 minutes for reset password link! The email could be in your junk folder!');
+    setErrorMessage('');
   }
 
   return (
@@ -219,14 +231,14 @@ function LoginPage() {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="border p-2"
+                        className="border p-2 rounded-md"
                       />
                       <input
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="border p-2"
+                        className="border p-2 rounded-md"
                       />
                       {isSignUp && (
                         <input
@@ -234,7 +246,7 @@ function LoginPage() {
                           placeholder="Confirm Password"
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          className="border p-2"
+                          className="border p-2 rounded-md"
                         />
                       )}
                       <a
@@ -284,7 +296,7 @@ function LoginPage() {
                           e.preventDefault();
                           toggleFormMode();
                         }}
-                        className="text-gray-800 cursor-pointer mb-4"
+                        className="text-gray-800 cursor-pointer"
                       >
                         {isSignUp ? (
                           <span className='flex justify-center gap-1 dark:text-lightBG'>
@@ -302,7 +314,7 @@ function LoginPage() {
                           </span>
                         )}
                       </a>
-
+                      <p className='hover: cursor-pointer font-semibold underline flex justify-center gap-1 -mt-2 dark:text-lightBG' onClick={() => setResetPassword(!resetPassword)}>Forgot password?</p>
                     </div>
                   </div>
                 </div>
@@ -311,6 +323,34 @@ function LoginPage() {
           </div>
         </div>
       </main>
+      {/* Reset Password Popup */}
+      {resetPassword && ( 
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          {message && <p className="text-green-500 flex justify-center mb-2">{message}</p>}
+          <h2 className="text-xl mb-4">Enter your email</h2>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            name='email'
+            className="w-full border p-2 mb-2 rounded-md"
+            placeholder="Enter your email"
+          />
+          {successResetPassword && <div className='text-green-600 mt-1 mb-2'>Success! Check your email to reset your password.</div>}
+          <button onClick={sendResetPassword} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            Submit
+          </button>
+          <button onClick={() => {
+            setResetPassword(false);
+            setMessage('');
+            setErrorMessage('');
+          }} className="bg-gray-300 text-gray-700 ml-2 px-4 py-2 rounded hover:bg-gray-400">
+            Cancel
+          </button>
+        </div>
+      </div>
+      )}
       {/* OTP Input Popup */}
       {showOtpPopup && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50">
@@ -321,7 +361,7 @@ function LoginPage() {
               type="text"
               value={otpInput}
               onChange={handleOtpInputChange}
-              className="w-full border p-2 mb-2"
+              className="w-full border p-2 mb-2 rounded-md"
               placeholder="Enter OTP"
             />
             {otpError && <p className="text-red-500 mb-2">{otpError}</p>}
