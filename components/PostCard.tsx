@@ -23,6 +23,7 @@ import ReactTimeAgo from 'react-time-ago';
 import {UserContext} from '@/contexts/UserContext';
 import {useSession, useSupabaseClient} from '@supabase/auth-helpers-react';
 import PhotoModal from './PhotoModal';
+import OptimizedImage from './OptimizedImage';
 
 /**
  * A component representing a single post card.
@@ -763,7 +764,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
           <div>
             {photos.length === 1 ? (
               <div className='rounded-md overflow-hidden cursor-pointer' onClick={() => openPhotoModal(0)}>
-                <img src={photos[0]} className='mx-auto w-full h-full object-cover' alt="" />
+                <OptimizedImage src={photos[0]} className='mx-auto w-full h-full object-cover' alt=""/>
               </div>
             ) : (
               <div>
@@ -771,7 +772,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
                   <div className='grid grid-cols-2 gap-2'>
                     {photos.map((photo, index) => (
                       <div key={photo} className='rounded-md overflow-hidden cursor-pointer' onClick={() => openPhotoModal(index)}>
-                        <img src={photo} className='mx-auto w-full h-full object-cover' alt="" />
+                        <OptimizedImage src={photo} className='mx-auto w-full h-full object-cover' alt="" />
                       </div>
                     ))}
                   </div>
@@ -779,7 +780,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
                   <div className='grid grid-cols-2 gap-2'>
                     {photos.slice(0, 3).map((photo, index) => (
                       <div key={photo} className='rounded-md overflow-hidden cursor-pointer' onClick={() => openPhotoModal(index)}>
-                        <img src={photo} className='mx-auto w-full h-full object-cover' alt="" />
+                        <OptimizedImage src={photo} className='mx-auto w-full h-full object-cover' alt="" />
                       </div>
                     ))}
                     <div className='relative rounded-md overflow-hidden cursor-pointer' onClick={() => openPhotoModal(3)}>
