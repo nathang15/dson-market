@@ -1,5 +1,1 @@
-[[redirects]]
-from = "https://dsonmarket.netlify.app/*"
-to = "https://www.dsonmarket.com/:splat"
-status = 301
-force = true
+
