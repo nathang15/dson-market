@@ -42,7 +42,7 @@ function PostFormCard({onPost}) {
       return;
     }
 
-    if (hasWTS || hasWTSlong && uploads.length === 0) {
+    if ((hasWTS || hasWTSlong) && uploads.length === 0) {
       setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
       return;
     }

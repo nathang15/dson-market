@@ -98,7 +98,7 @@ function PostCard({id, content, created_at, photos, sold, profiles: authorProfil
       return;
     }
 
-    if (hasWTS || hasWTSlong && (photos.length + uploads.length) === 0) {
+    if ((hasWTS || hasWTSlong) && (photos.length + uploads.length) === 0) {
       setErrorMessage('Invalid post input. Please include at least 1 photo for #wts posts.');
       return;
     }
